@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Departments — Stonebridge University School of Business & Finance</title>
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .page-body { padding-top: var(--nav-h); }
+    .page-hero { background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy) 100%); padding: var(--sp-20) 0 var(--sp-16); border-bottom: 2px solid var(--gold-dark); }
+    .page-hero .overline { display: block; margin-bottom: var(--sp-3); color: var(--gold); }
+    .page-hero h1 { color: var(--ivory); margin-bottom: var(--sp-4); }
+    .page-hero .lead { color: rgba(250,249,246,0.65); max-width: 600px; }
+    .breadcrumb { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-6); font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(250,249,246,0.4); }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+
+    /* Department anchor sections */
+    .dept-block { padding: var(--sp-24) 0; }
+    .dept-block + .dept-block { border-top: 1px solid var(--color-border); }
+    .dept-block--alt { background-color: var(--ivory-warm); }
+
+    .dept-intro {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--sp-16);
+      align-items: start;
+      margin-bottom: var(--sp-16);
+    }
+    .dept-intro__text .overline { display: block; margin-bottom: var(--sp-3); }
+    .dept-intro__text h2 { color: var(--navy); margin-bottom: var(--sp-5); }
+    .dept-intro__text p { margin-bottom: var(--sp-4); }
+
+    .dept-panel {
+      background: var(--navy-deeper);
+      padding: var(--sp-8);
+      border: 1px solid rgba(198,167,94,0.2);
+    }
+    .dept-panel__head {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: var(--sp-5);
+      padding-bottom: var(--sp-3);
+      border-bottom: 1px solid rgba(198,167,94,0.2);
+    }
+    .dept-panel__item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--sp-3) 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      color: rgba(250,249,246,0.7);
+    }
+    .dept-panel__item:last-child { border-bottom: none; }
+    .dept-panel__item strong { color: var(--ivory); font-weight: 600; }
+
+    /* Faculty cards */
+    .faculty-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); margin-top: var(--sp-8); }
+    .faculty-card {
+      background: var(--white);
+      border: 1px solid var(--color-border);
+      padding: var(--sp-6);
+      text-align: center;
+    }
+    .faculty-card__initial {
+      width: 64px;
+      height: 64px;
+      background: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      margin: 0 auto var(--sp-4);
+    }
+    .faculty-card__name {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: var(--sp-1);
+    }
+    .faculty-card__title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .faculty-card__spec {
+      font-size: 12px;
+      color: var(beige);
+      margin-top: var(--sp-2);
+    }
+
+    /* Research areas */
+    .research-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+    .research-item {
+      padding: var(--sp-4) var(--sp-5);
+      background: var(--ivory);
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--gold);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--charcoal-soft);
+    }
+
+    @media (max-width: 900px) {
+      .dept-intro { grid-template-columns: 1fr; }
+      .faculty-grid { grid-template-columns: repeat(2,1fr); }
+      .research-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .faculty-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;flex-shrink:0;">
+        <rect width="44" height="44" fill="#1E3A8A"/>
+        <path d="M22 6 L36 13 L36 22 C36 30 29 37 22 39 C15 37 8 30 8 22 L8 13 Z" fill="none" stroke="#C6A75E" stroke-width="1.5"/>
+        <text x="22" y="27" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#C6A75E">SB</text>
+        <line x1="13" y1="32" x2="31" y2="32" stroke="#C6A75E" stroke-width="0.75" opacity="0.5"/>
+      </svg>
+      <div class="nav__logo-text"><span class="nav__logo-name">Stonebridge</span><span class="nav__logo-sub">School of Business & Finance</span></div>
+    </a>
+    <ul class="nav__links">
+      <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+      <li class="nav__item"><a href="programmes.html" class="nav__link">Programmes ▾</a>
+        <div class="nav__dropdown">
+          <a href="programmes.html#foundation" class="nav__dropdown-link">Foundation</a>
+          <a href="programmes.html#undergraduate" class="nav__dropdown-link">Undergraduate</a>
+          <a href="programmes.html#postgraduate" class="nav__dropdown-link">Postgraduate</a>
+          <a href="courses.html" class="nav__dropdown-link">Browse All Courses</a>
+        </div>
+      </li>
+      <li class="nav__item"><a href="departments.html" class="nav__link active">Departments ▾</a>
+        <div class="nav__dropdown">
+          <a href="departments.html#finance" class="nav__dropdown-link">Finance & Banking</a>
+          <a href="departments.html#management" class="nav__dropdown-link">Management & Strategy</a>
+          <a href="departments.html#marketing" class="nav__dropdown-link">Marketing & Commerce</a>
+        </div>
+      </li>
+      <li class="nav__item"><a href="admissions.html" class="nav__link">Admissions ▾</a>
+        <div class="nav__dropdown">
+          <a href="admissions.html#about" class="nav__dropdown-link">About Admissions</a>
+          <a href="admissions.html#requirements" class="nav__dropdown-link">Entry Requirements</a>
+          <a href="admissions.html#enquiry" class="nav__dropdown-link">Submit an Enquiry</a>
+        </div>
+      </li>
+      <li class="nav__item"><a href="about.html" class="nav__link">About ▾</a>
+        <div class="nav__dropdown">
+          <a href="about.html" class="nav__dropdown-link">About the University</a>
+          <a href="research.html" class="nav__dropdown-link">Research & Publications</a>
+          <a href="alumni.html" class="nav__dropdown-link">Alumni Network</a>
+          <a href="contact.html" class="nav__dropdown-link">Contact Us</a>
+        </div>
+      </li>
+    </ul>
+    <a href="admissions.html#enquiry" class="nav__cta">Apply Now</a>
+    <button type="button" class="nav__toggle" aria-label="Open navigation menu" aria-expanded="false"
+            onclick="var l=this.closest('.nav').querySelector('.nav__links');var o=l.classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label', o ? 'Close navigation menu' : 'Open navigation menu')">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-body">
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Departments</span></div>
+    <span class="overline">Academic Departments</span>
+    <h1>Our Departments</h1>
+    <p class="lead">Three distinguished departments at the forefront of business and financial scholarship, research, and professional development.</p>
+  </div>
+</section>
+
+<!-- FINANCE & BANKING -->
+<section class="dept-block" id="finance">
+  <div class="container">
+    <div class="dept-intro">
+      <div class="dept-intro__text">
+        <span class="overline">Department One</span>
+        <h2>Finance & Banking</h2>
+        <p>The Department of Finance & Banking is one of the oldest and most respected finance departments in the United Kingdom. Founded in 1902, it has produced some of the country's most distinguished financial economists, central bankers, and investment professionals.</p>
+        <p>Our research spans capital markets, asset pricing, corporate finance, and financial regulation, with close ties to the Bank of England, the FCA, and leading global financial institutions.</p>
+        <div style="display:flex;gap:var(--sp-4);flex-wrap:wrap;margin-top:var(--sp-6);">
+          <a href="programmes.html#undergraduate" class="btn btn--primary">UG Programmes</a>
+          <a href="programmes.html#postgraduate" class="btn btn--outline">PG Programmes</a>
+        </div>
+      </div>
+      <div class="dept-panel">
+        <div class="dept-panel__head">Department at a Glance</div>
+        <div class="dept-panel__item"><span>Head of Department</span><strong>Prof. James Thornton</strong></div>
+        <div class="dept-panel__item"><span>Faculty Members</span><strong>48</strong></div>
+        <div class="dept-panel__item"><span>Research Centres</span><strong>3</strong></div>
+        <div class="dept-panel__item"><span>Annual Publications</span><strong>120+</strong></div>
+        <div class="dept-panel__item"><span>Industry Partners</span><strong>Goldman Sachs, Barclays, BoE</strong></div>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom:var(--sp-5);color:var(--navy);">Academic Faculty</h4>
+    <div class="faculty-grid">
+      <div class="faculty-card"><div class="faculty-card__initial">JT</div><div class="faculty-card__name">Prof. James Thornton</div><div class="faculty-card__title">Head of Department · Professor of Finance</div><div class="faculty-card__spec">Capital Markets, Asset Pricing</div></div>
+      <div class="faculty-card"><div class="faculty-card__initial">SM</div><div class="faculty-card__name">Dr. Sarah Mallory</div><div class="faculty-card__title">Senior Lecturer · Banking Studies</div><div class="faculty-card__spec">Systemic Risk, Basel Regulation</div></div>
+      <div class="faculty-card"><div class="faculty-card__initial">RK</div><div class="faculty-card__name">Prof. Rohan Kumar</div><div class="faculty-card__title">Professor of Corporate Finance</div><div class="faculty-card__spec">M&A, Private Equity, Valuation</div></div>
+    </div>
+
+    <h4 style="margin-top:var(--sp-10);margin-bottom:var(--sp-5);color:var(--navy);">Research Areas</h4>
+    <div class="research-list">
+      <div class="research-item">Capital Markets & Securities Law</div>
+      <div class="research-item">Systemic Risk & Financial Stability</div>
+      <div class="research-item">Corporate Finance & Governance</div>
+      <div class="research-item">Derivatives & Quantitative Finance</div>
+      <div class="research-item">Central Banking & Monetary Policy</div>
+      <div class="research-item">FinTech & Digital Assets</div>
+    </div>
+  </div>
+</section>
+
+<!-- MANAGEMENT & STRATEGY -->
+<section class="dept-block dept-block--alt" id="management">
+  <div class="container">
+    <div class="dept-intro">
+      <div class="dept-intro__text">
+        <span class="overline">Department Two</span>
+        <h2>Management & Strategy</h2>
+        <p>The Department of Management & Strategy prepares students and researchers to understand, lead, and transform organisations of all kinds. Our faculty brings together scholars from strategy, organisational behaviour, human resource management, entrepreneurship, and innovation.</p>
+        <p>We maintain active research partnerships with FTSE 100 companies, government bodies, and international NGOs, ensuring our teaching remains grounded in real-world management challenges.</p>
+        <div style="display:flex;gap:var(--sp-4);flex-wrap:wrap;margin-top:var(--sp-6);">
+          <a href="programmes.html#undergraduate" class="btn btn--primary">UG Programmes</a>
+          <a href="programmes.html#postgraduate" class="btn btn--outline">PG Programmes</a>
+        </div>
+      </div>
+      <div class="dept-panel">
+        <div class="dept-panel__head">Department at a Glance</div>
+        <div class="dept-panel__item"><span>Head of Department</span><strong>Prof. Claire Ashworth</strong></div>
+        <div class="dept-panel__item"><span>Faculty Members</span><strong>41</strong></div>
+        <div class="dept-panel__item"><span>Research Centres</span><strong>2</strong></div>
+        <div class="dept-panel__item"><span>Annual Publications</span><strong>95+</strong></div>
+        <div class="dept-panel__item"><span>Industry Partners</span><strong>McKinsey, PwC, Deloitte</strong></div>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom:var(--sp-5);color:var(--navy);">Academic Faculty</h4>
+    <div class="faculty-grid">
+      <div class="faculty-card"><div class="faculty-card__initial">CA</div><div class="faculty-card__name">Prof. Claire Ashworth</div><div class="faculty-card__title">Head of Department · Strategy</div><div class="faculty-card__spec">Competitive Strategy, Innovation</div></div>
+      <div class="faculty-card"><div class="faculty-card__initial">MO</div><div class="faculty-card__name">Dr. Marcus Osei</div><div class="faculty-card__title">Associate Professor · OB</div><div class="faculty-card__spec">Leadership, Organisational Change</div></div>
+      <div class="faculty-card"><div class="faculty-card__initial">HN</div><div class="faculty-card__name">Dr. Helena Novak</div><div class="faculty-card__title">Senior Lecturer · Entrepreneurship</div><div class="faculty-card__spec">Start-ups, Venture Capital</div></div>
+    </div>
+
+    <h4 style="margin-top:var(--sp-10);margin-bottom:var(--sp-5);color:var(--navy);">Research Areas</h4>
+    <div class="research-list">
+      <div class="research-item">Strategic Management & Competitive Advantage</div>
+      <div class="research-item">Organisational Behaviour & Culture</div>
+      <div class="research-item">Corporate Governance & Ethics</div>
+      <div class="research-item">Entrepreneurship & Innovation</div>
+      <div class="research-item">Human Resource Management</div>
+      <div class="research-item">International Business & Global Strategy</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKETING & COMMERCE -->
+<section class="dept-block" id="marketing">
+  <div class="container">
+    <div class="dept-intro">
+      <div class="dept-intro__text">
+        <span class="overline">Department Three</span>
+        <h2>Marketing & Commerce</h2>
+        <p>The Department of Marketing & Commerce is at the intersection of theory and commercial practice. Our scholars examine consumer behaviour, brand management, digital commerce, and the analytics that underpin modern business decisions.</p>
+        <p>With dedicated laboratories for consumer research and data analytics, and partnerships with leading retail and media organisations, we offer a truly applied education in the commercial sciences.</p>
+        <div style="display:flex;gap:var(--sp-4);flex-wrap:wrap;margin-top:var(--sp-6);">
+          <a href="programmes.html#undergraduate" class="btn btn--primary">UG Programmes</a>
+          <a href="programmes.html#postgraduate" class="btn btn--outline">PG Programmes</a>
+        </div>
+      </div>
+      <div class="dept-panel">
+        <div class="dept-panel__head">Department at a Glance</div>
+        <div class="dept-panel__item"><span>Head of Department</span><strong>Prof. Isabelle Fontaine</strong></div>
+        <div class="dept-panel__item"><span>Faculty Members</span><strong>35</strong></div>
+        <div class="dept-panel__item"><span>Research Centres</span><strong>2</strong></div>
+        <div class="dept-panel__item"><span>Annual Publications</span><strong>80+</strong></div>
+        <div class="dept-panel__item"><span>Industry Partners</span><strong>Unilever, WPP, Amazon</strong></div>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom:var(--sp-5);color:var(--navy);">Academic Faculty</h4>
+    <div class="faculty-grid">
+      <div class="faculty-card"><div class="faculty-card__initial">IF</div><div class="faculty-card__name">Prof. Isabelle Fontaine</div><div class="faculty-card__title">Head of Department · Marketing</div><div class="faculty-card__spec">Brand Strategy, Consumer Behaviour</div></div>
+      <div class="faculty-card"><div class="faculty-card__initial">DW</div><div class="faculty-card__name">Dr. David Walsh</div><div class="faculty-card__title">Senior Lecturer · Digital Commerce</div><div class="faculty-card__spec">E-Commerce, Marketing Analytics</div></div>
+      <div class="faculty-card"><div class="faculty-card__initial">AP</div><div class="faculty-card__name">Dr. Amara Patel</div><div class="faculty-card__title">Lecturer · Consumer Psychology</div><div class="faculty-card__spec">Behavioural Economics, Decision Making</div></div>
+    </div>
+
+    <h4 style="margin-top:var(--sp-10);margin-bottom:var(--sp-5);color:var(--navy);">Research Areas</h4>
+    <div class="research-list">
+      <div class="research-item">Consumer Behaviour & Decision Making</div>
+      <div class="research-item">Digital Marketing & Social Commerce</div>
+      <div class="research-item">Brand Management & Identity</div>
+      <div class="research-item">Marketing Analytics & Data Science</div>
+      <div class="research-item">Retail & Supply Chain Management</div>
+      <div class="research-item">International Trade & Export Strategy</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><div class="footer__brand-name">Stonebridge University</div><div class="footer__brand-tagline">School of Business & Finance</div><p class="footer__brand-desc">Shaping principled leaders and analytical minds since 1847. Triple-accredited and globally ranked.</p></div>
+      <div><div class="footer__col-heading">Programmes</div><ul class="footer__links"><li><a href="programmes.html#foundation" class="footer__link">Foundation</a></li><li><a href="programmes.html#undergraduate" class="footer__link">Undergraduate</a></li><li><a href="programmes.html#postgraduate" class="footer__link">Postgraduate</a></li><li><a href="courses.html" class="footer__link">Browse All Courses</a></li></ul></div>
+      <div><div class="footer__col-heading">The School</div><ul class="footer__links"><li><a href="about.html" class="footer__link">About Us</a></li><li><a href="departments.html" class="footer__link">Departments</a></li><li><a href="research.html" class="footer__link">Research & Publications</a></li><li><a href="alumni.html" class="footer__link">Alumni Network</a></li></ul></div>
+      <div><div class="footer__col-heading">Contact</div><ul class="footer__links"><li><a href="admissions.html#enquiry" class="footer__link">Submit an Enquiry</a></li><li><a href="contact.html" class="footer__link">Contact Us</a></li><li><a href="admissions.html" class="footer__link">How to Apply</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2025 Stonebridge University School of Business & Finance. All rights reserved.</span><span class="footer__copy">Oxford, England · OX1 2BF</span></div>
+  </div>
+</footer>
+</div>
+</body>
+</html>
