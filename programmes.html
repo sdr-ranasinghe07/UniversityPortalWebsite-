@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Programmes — Stonebridge University School of Business & Finance</title>
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .page-body { padding-top: var(--nav-h); }
+
+    /* Page Hero */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy) 100%);
+      padding: var(--sp-20) 0 var(--sp-16);
+      border-bottom: 2px solid var(--gold-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 35%;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 40px,
+        rgba(198,167,94,0.03) 40px,
+        rgba(198,167,94,0.03) 41px
+      );
+    }
+    .page-hero .overline { display: block; margin-bottom: var(--sp-3); color: var(--gold); }
+    .page-hero h1 { color: var(--ivory); margin-bottom: var(--sp-4); }
+    .page-hero .lead { color: rgba(250,249,246,0.65); max-width: 600px; }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex; align-items: center; gap: var(--sp-2);
+      margin-bottom: var(--sp-6);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(250,249,246,0.4);
+    }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb span { color: rgba(250,249,246,0.3); }
+
+    /* Programme Level Tabs */
+    .prog-tabs {
+      background: var(--white);
+      border-bottom: 1px solid var(--color-border);
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 100;
+    }
+    .prog-tabs__inner {
+      display: flex;
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 var(--sp-10);
+    }
+    .prog-tab {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: var(--sp-5) var(--sp-8);
+      color: var(--gray);
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+    .prog-tab:hover, .prog-tab.active { color: var(--navy); border-bottom-color: var(--gold); }
+
+    /* Level sections */
+    .level-section { padding: var(--sp-20) 0; }
+    .level-section + .level-section { border-top: 1px solid var(--color-border); }
+    .level-section--alt { background-color: var(--ivory-warm); }
+
+    .level-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-8);
+      margin-bottom: var(--sp-12);
+    }
+    .level-header__text { max-width: 560px; }
+    .level-header .overline { margin-bottom: var(--sp-3); display: block; }
+    .level-header h2 { margin-bottom: var(--sp-4); color: var(--navy); }
+
+    /* Course card expanded */
+    .course-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: var(--sp-6); }
+
+    .course-item {
+      background: var(--white);
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--navy);
+      padding: var(--sp-8);
+      transition: all var(--transition);
+    }
+    .course-item:hover { border-left-color: var(--gold); box-shadow: var(--shadow-md); transform: translateX(3px); }
+    .course-item__code {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: navy;
+      margin-bottom: var(--sp-2);
+    }
+    .course-item h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: var(--sp-3);
+      line-height: 1.25;
+    }
+    .course-item p { font-size: 14px; line-height: 1.65; margin-bottom: var(--sp-5); }
+    .course-item__meta {
+      display: flex; gap: var(--sp-4); flex-wrap: wrap;
+      padding-top: var(--sp-4);
+      border-top: 1px solid var(--color-border);
+    }
+    .course-item__meta span {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--gray);
+    }
+
+    /* Entry requirements box */
+    .req-box {
+      background: var(--navy-tint);
+      border: 1px solid rgba(30,58,138,0.15);
+      border-left: 3px solid var(--navy);
+      padding: var(--sp-6) var(--sp-8);
+      margin-top: var(--sp-8);
+    }
+    .req-box h4 { color: var(--navy); margin-bottom: var(--sp-3); font-size: 13px; letter-spacing: 1.5px; }
+    .req-box ul { list-style: none; }
+    .req-box ul li {
+      font-size: 14px;
+      color: var(--charcoal-soft);
+      padding: var(--sp-2) 0;
+      border-bottom: 1px solid rgba(30,58,138,0.08);
+      padding-left: var(--sp-5);
+      position: relative;
+    }
+    .req-box ul li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .req-box ul li:last-child { border-bottom: none; }
+
+    /* CTA inline */
+    .inline-cta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deeper) 100%);
+      padding: var(--sp-10) var(--sp-12);
+      margin-top: var(--sp-16);
+    }
+    .inline-cta h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--ivory); margin-bottom: var(--sp-2); }
+    .inline-cta p { font-size: 14px; color: rgba(250,249,246,0.6); max-width: 400px; }
+    .inline-cta__btns { display: flex; gap: var(--sp-3); flex-shrink: 0; }
+
+    @media (max-width: 768px) {
+      .course-grid { grid-template-columns: 1fr; }
+      .level-header { flex-direction: column; }
+      .inline-cta { flex-direction: column; gap: var(--sp-6); }
+      .prog-tabs__inner { padding: 0 var(--sp-4); overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;flex-shrink:0;">
+        <rect width="44" height="44" fill="#1E3A8A"/>
+        <path d="M22 6 L36 13 L36 22 C36 30 29 37 22 39 C15 37 8 30 8 22 L8 13 Z" fill="none" stroke="#C6A75E" stroke-width="1.5"/>
+        <text x="22" y="27" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#C6A75E">SB</text>
+        <line x1="13" y1="32" x2="31" y2="32" stroke="#C6A75E" stroke-width="0.75" opacity="0.5"/>
+      </svg>
+      <div class="nav__logo-text">
+        <span class="nav__logo-name">Stonebridge</span>
+        <span class="nav__logo-sub">School of Business & Finance</span>
+      </div>
+    </a>
+    <ul class="nav__links">
+      <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+      <li class="nav__item">
+        <a href="programmes.html" class="nav__link active">Programmes ▾</a>
+        <div class="nav__dropdown">
+          <a href="programmes.html#foundation" class="nav__dropdown-link">Foundation</a>
+          <a href="programmes.html#undergraduate" class="nav__dropdown-link">Undergraduate</a>
+          <a href="programmes.html#postgraduate" class="nav__dropdown-link">Postgraduate</a>
+          <a href="courses.html" class="nav__dropdown-link">Browse All Courses</a>
+        </div>
+      </li>
+      <li class="nav__item">
+        <a href="departments.html" class="nav__link">Departments ▾</a>
+        <div class="nav__dropdown">
+          <a href="departments.html#finance" class="nav__dropdown-link">Finance & Banking</a>
+          <a href="departments.html#management" class="nav__dropdown-link">Management & Strategy</a>
+          <a href="departments.html#marketing" class="nav__dropdown-link">Marketing & Commerce</a>
+        </div>
+      </li>
+      <li class="nav__item">
+        <a href="admissions.html" class="nav__link">Admissions ▾</a>
+        <div class="nav__dropdown">
+          <a href="admissions.html#about" class="nav__dropdown-link">About Admissions</a>
+          <a href="admissions.html#requirements" class="nav__dropdown-link">Entry Requirements</a>
+          <a href="admissions.html#enquiry" class="nav__dropdown-link">Submit an Enquiry</a>
+        </div>
+      </li>
+      <li class="nav__item">
+        <a href="about.html" class="nav__link">About ▾</a>
+        <div class="nav__dropdown">
+          <a href="about.html" class="nav__dropdown-link">About the University</a>
+          <a href="research.html" class="nav__dropdown-link">Research & Publications</a>
+          <a href="alumni.html" class="nav__dropdown-link">Alumni Network</a>
+          <a href="contact.html" class="nav__dropdown-link">Contact Us</a>
+        </div>
+      </li>
+    </ul>
+    <a href="admissions.html#enquiry" class="nav__cta">Apply Now</a>
+    <button type="button" class="nav__toggle" aria-label="Open navigation menu" aria-expanded="false"
+            onclick="var l=this.closest('.nav').querySelector('.nav__links');var o=l.classList.toggle('open');this.setAttribute('aria-expanded',o);this.setAttribute('aria-label', o ? 'Close navigation menu' : 'Open navigation menu')">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-body">
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Programmes</span></div>
+    <span class="overline">Academic Programmes</span>
+    <h1>Our Programmes</h1>
+    <p class="lead">From foundational study to advanced postgraduate research, Stonebridge offers a comprehensive suite of academic programmes in business, finance, and commerce.</p>
+  </div>
+</section>
+
+<!-- TABS -->
+<div class="prog-tabs">
+  <div class="prog-tabs__inner">
+    <a href="#foundation" class="prog-tab">Foundation</a>
+    <a href="#undergraduate" class="prog-tab">Undergraduate</a>
+    <a href="#postgraduate" class="prog-tab">Postgraduate</a>
+  </div>
+</div>
+
+<!--  FOUNDATION  -->
+<section class="level-section" id="foundation">
+  <div class="container">
+    <div class="level-header">
+      <div class="level-header__text">
+        <span class="overline">Foundation Year</span>
+        <h2>Foundation in Business & Economics</h2>
+        <p>Our Foundation Year is designed for students who demonstrate academic potential but require additional preparation before entering undergraduate study. It provides a thorough grounding in economics, quantitative methods, and academic English, with a direct progression route onto our BSc programmes.</p>
+      </div>
+      <a href="admissions.html#enquiry" class="btn btn--primary" style="flex-shrink:0; align-self:flex-start; margin-top:var(--sp-10);">Apply for Foundation</a>
+    </div>
+
+    <div class="course-grid">
+      <div class="course-item">
+        <div class="course-item__code">FND 101</div>
+        <h3>Introduction to Business & Markets</h3>
+        <p>An accessible introduction to how markets function, covering supply and demand, price mechanisms, and the role of firms and consumers in the modern economy.</p>
+        <div class="course-item__meta">
+          <span>📅 Full Year</span><span>📍 Oxford Campus</span><span>🎓 30 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">FND 102</div>
+        <h3>Quantitative Methods for Business</h3>
+        <p>Builds the mathematical and statistical foundations needed for undergraduate finance and economics — covering algebra, statistics, data interpretation and financial arithmetic.</p>
+        <div class="course-item__meta">
+          <span>📅 Full Year</span><span>📍 Oxford Campus</span><span>🎓 30 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">FND 103</div>
+        <h3>Academic English & Communication</h3>
+        <p>Develops the written and oral communication skills essential for university-level study, including essay writing, critical reading, and academic presentation.</p>
+        <div class="course-item__meta">
+          <span>📅 Full Year</span><span>📍 Oxford Campus</span><span>🎓 20 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">FND 104</div>
+        <h3>Principles of Accounting</h3>
+        <p>An introduction to double-entry bookkeeping, financial statements, and basic management accounting, preparing students for undergraduate accounting modules.</p>
+        <div class="course-item__meta">
+          <span>📅 Full Year</span><span>📍 Oxford Campus</span><span>🎓 20 Credits</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-box">
+      <h4>Entry Requirements — Foundation</h4>
+      <ul>
+        <li>Minimum 5 GCSEs at grade C/4 or above, including English and Mathematics</li>
+        <li>IELTS 5.5 overall (no component below 5.0) for international students</li>
+        <li>Applicants without formal qualifications may be considered via interview and assessment</li>
+        <li>No prior knowledge of business or economics is required</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- UNDERGRADUATE  -->
+<section class="level-section level-section--alt" id="undergraduate">
+  <div class="container">
+    <div class="level-header">
+      <div class="level-header__text">
+        <span class="overline">Undergraduate Degrees</span>
+        <h2>Bachelor's Programmes</h2>
+        <p>Our undergraduate degrees combine rigorous academic theory with applied business practice. All programmes are three years full-time and lead to a Bachelor of Science (BSc) award. A placement year (sandwich) option is available, extending study to four years.</p>
+      </div>
+      <a href="admissions.html#enquiry" class="btn btn--primary" style="flex-shrink:0; align-self:flex-start; margin-top:var(--sp-10);">Apply Undergraduate</a>
+    </div>
+
+    <div class="course-grid">
+      <div class="course-item">
+        <div class="course-item__code">BSc · 3 Years</div>
+        <h3>BSc Business & Finance</h3>
+        <p>Our flagship degree covering corporate finance, business strategy, economics, and management. Graduates are highly sought by leading financial institutions and consultancies.</p>
+        <div class="course-item__meta">
+          <span>📅 3 Years (4 with placement)</span><span>💷 £9,250/year</span><span>🎓 360 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">BSc · 3 Years</div>
+        <h3>BSc Accounting & Financial Management</h3>
+        <p>A professionally-focused degree aligned with ICAEW, ACCA and CIMA accreditation pathways. Covers financial reporting, audit, taxation and management accounting.</p>
+        <div class="course-item__meta">
+          <span>📅 3 Years (4 with placement)</span><span>💷 £9,250/year</span><span>🎓 360 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">BSc · 3 Years</div>
+        <h3>BSc Economics & Investment</h3>
+        <p>Blends economic theory with applied investment analysis. Students develop quantitative skills alongside a deep understanding of macro and microeconomic policy.</p>
+        <div class="course-item__meta">
+          <span>📅 3 Years (4 with placement)</span><span>💷 £9,250/year</span><span>🎓 360 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">BSc · 3 Years</div>
+        <h3>BSc International Business & Marketing</h3>
+        <p>Examines global commerce, cross-cultural management, digital marketing, and international trade law within a comparative international framework.</p>
+        <div class="course-item__meta">
+          <span>📅 3 Years (4 with placement)</span><span>💷 £9,250/year</span><span>🎓 360 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">BSc · 3 Years</div>
+        <h3>BSc Banking & Risk Management</h3>
+        <p>Specialist preparation for careers in financial services, covering credit risk, Basel regulation, derivatives, and the structure of global banking systems.</p>
+        <div class="course-item__meta">
+          <span>📅 3 Years (4 with placement)</span><span>💷 £9,250/year</span><span>🎓 360 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">BSc · 3 Years</div>
+        <h3>BSc Business Management & Strategy</h3>
+        <p>Develops strategic thinking, leadership capability and entrepreneurial judgement, with modules in operations, HR, innovation, and corporate governance.</p>
+        <div class="course-item__meta">
+          <span>📅 3 Years (4 with placement)</span><span>💷 £9,250/year</span><span>🎓 360 Credits</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-box">
+      <h4>Entry Requirements — Undergraduate</h4>
+      <ul>
+        <li>AAB–ABB at A-Level (or equivalent international qualifications)</li>
+        <li>Grade B/6 or above in GCSE Mathematics</li>
+        <li>IELTS 6.5 overall (no component below 6.0) for international students</li>
+        <li>Personal statement demonstrating interest in business or economics</li>
+        <li>Foundation Year students with distinction are guaranteed a place</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!--  POSTGRADUATE  -->
+<section class="level-section" id="postgraduate">
+  <div class="container">
+    <div class="level-header">
+      <div class="level-header__text">
+        <span class="overline">Postgraduate Programmes</span>
+        <h2>Master's & Postgraduate Degrees</h2>
+        <p>Our postgraduate programmes are designed for graduates and professionals seeking to deepen their expertise, advance their careers, or transition into a new area of business and finance. All programmes are available full-time (12 months) or part-time (24 months).</p>
+      </div>
+      <a href="admissions.html#enquiry" class="btn btn--primary" style="flex-shrink:0; align-self:flex-start; margin-top:var(--sp-10);">Apply Postgraduate</a>
+    </div>
+
+    <div class="course-grid">
+      <div class="course-item">
+        <div class="course-item__code">MSc · 12 Months</div>
+        <h3>MSc Financial Management</h3>
+        <p>An intensive programme covering advanced corporate finance, asset pricing, portfolio management, and quantitative methods for financial decision-making.</p>
+        <div class="course-item__meta">
+          <span>📅 12 / 24 Months</span><span>💷 £22,500/year</span><span>🎓 180 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">MSc · 12 Months</div>
+        <h3>MSc Banking & International Finance</h3>
+        <p>Examines global banking operations, financial regulation, central bank policy, foreign exchange markets, and the architecture of international capital flows.</p>
+        <div class="course-item__meta">
+          <span>📅 12 / 24 Months</span><span>💷 £22,500/year</span><span>🎓 180 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">MSc · 12 Months</div>
+        <h3>MSc Strategic Management</h3>
+        <p>Develops senior leadership and strategic reasoning. Covers competitive strategy, innovation management, mergers & acquisitions, and corporate transformation.</p>
+        <div class="course-item__meta">
+          <span>📅 12 / 24 Months</span><span>💷 £22,500/year</span><span>🎓 180 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">MSc · 12 Months</div>
+        <h3>MSc Marketing Analytics & Commerce</h3>
+        <p>Combines marketing strategy with data analytics, covering digital commerce, consumer insights, programmatic advertising, and marketing technology.</p>
+        <div class="course-item__meta">
+          <span>📅 12 / 24 Months</span><span>💷 £22,500/year</span><span>🎓 180 Credits</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">MBA · 12 Months</div>
+        <h3>MBA (Master of Business Administration)</h3>
+        <p>Our full-time MBA is designed for professionals with three or more years of experience, combining leadership development, strategy, finance, and a major consultancy project.</p>
+        <div class="course-item__meta">
+          <span>📅 12 Months</span><span>💷 £28,000</span><span>🎓 3+ yrs experience</span>
+        </div>
+      </div>
+      <div class="course-item">
+        <div class="course-item__code">MRes · 12 Months</div>
+        <h3>MRes Business & Finance Research</h3>
+        <p>A research-focused master's degree providing advanced training in qualitative and quantitative research methods, designed as preparation for doctoral study.</p>
+        <div class="course-item__meta">
+          <span>📅 12 / 24 Months</span><span>💷 £19,500/year</span><span>🎓 180 Credits</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="req-box">
+      <h4>Entry Requirements — Postgraduate</h4>
+      <ul>
+        <li>A minimum 2:1 Bachelor's degree (or international equivalent) in a relevant subject</li>
+        <li>For the MBA: minimum 3 years of relevant professional experience</li>
+        <li>IELTS 7.0 overall (no component below 6.5) for international students</li>
+        <li>Two academic or professional references</li>
+        <li>Personal statement of approximately 600–800 words</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- INLINE CTA -->
+<div class="inline-cta" style="margin:0;">
+  <div>
+    <h3>Ready to Apply?</h3>
+    <p>Our admissions team is available to guide you through every step of the application process.</p>
+  </div>
+  <div class="inline-cta__btns">
+    <a href="admissions.html" class="btn btn--gold">How to Apply</a>
+    <a href="admissions.html#enquiry" class="btn btn--outline-light">Enquire Now</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <div class="footer__brand-name">Stonebridge University</div>
+        <div class="footer__brand-tagline">School of Business & Finance</div>
+        <p class="footer__brand-desc">Shaping principled leaders and analytical minds since 1847. Triple-accredited and globally ranked.</p>
+      </div>
+      <div>
+        <div class="footer__col-heading">Programmes</div>
+        <ul class="footer__links">
+          <li><a href="programmes.html#foundation" class="footer__link">Foundation</a></li>
+          <li><a href="programmes.html#undergraduate" class="footer__link">Undergraduate</a></li>
+          <li><a href="programmes.html#postgraduate" class="footer__link">Postgraduate</a></li>
+          <li><a href="courses.html" class="footer__link">Browse All Courses</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-heading">The School</div>
+        <ul class="footer__links">
+          <li><a href="about.html" class="footer__link">About Us</a></li>
+          <li><a href="departments.html" class="footer__link">Departments</a></li>
+          <li><a href="research.html" class="footer__link">Research & Publications</a></li>
+          <li><a href="alumni.html" class="footer__link">Alumni Network</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__col-heading">Contact</div>
+        <ul class="footer__links">
+          <li><a href="admissions.html#enquiry" class="footer__link">Submit an Enquiry</a></li>
+          <li><a href="contact.html" class="footer__link">Contact Us</a></li>
+          <li><a href="admissions.html" class="footer__link">How to Apply</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© 2025 Stonebridge University School of Business & Finance. All rights reserved.</span>
+      <span class="footer__copy">Oxford, England · OX1 2BF</span>
+    </div>
+  </div>
+</footer>
+</div>
+</body>
+</html>
