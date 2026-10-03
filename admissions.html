@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admissions — Stonebridge University</title>
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .page-body{padding-top:var(--nav-h)}
+    .page-hero{background:linear-gradient(135deg,var(--navy-deeper) 0%,var(--navy) 100%);padding:var(--sp-20) 0 var(--sp-16);border-bottom:2px solid var(--gold-dark)}
+    .page-hero .overline{display:block;margin-bottom:var(--sp-3);color:var(--gold)}
+    .page-hero h1{color:var(--ivory);margin-bottom:var(--sp-4)}
+    .page-hero .lead{color:rgba(250,249,246,0.65);max-width:600px}
+    .breadcrumb{display:flex;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-6);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:rgba(250,249,246,0.4)}
+    .breadcrumb a{color:var(--gold);text-decoration:none}
+    .adm-about{padding:var(--sp-20) 0;background:var(--ivory)}
+    .adm-about__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-16);align-items:start}
+    .adm-about__text .overline{display:block;margin-bottom:var(--sp-3)}
+    .adm-about__text h2{color:var(--navy);margin-bottom:var(--sp-5)}
+    .adm-about__text p{margin-bottom:var(--sp-4)}
+    .key-dates{background:var(--navy-deeper);padding:var(--sp-4) var(--sp-6)}
+    .key-dates__title{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:var(--sp-4);padding-bottom:var(--sp-3);border-bottom:1px solid rgba(198,167,94,0.2)}
+    .key-date{display:flex;justify-content:space-between;align-items:flex-start;padding:var(--sp-3) 0;border-bottom:1px solid rgba(255,255,255,0.05);gap:var(--sp-4)}
+    .key-date:last-child{border-bottom:none}
+    .key-date__label{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(250,249,246,0.7)}
+    .key-date__date{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gold-light);white-space:nowrap}
+    .adm-process{padding:var(--sp-20) 0;background:var(--ivory-warm)}
+    .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp-6);margin-top:var(--sp-10)}
+    .step{background:var(--white);border:1px solid var(--color-border);padding:var(--sp-6)}
+    .step__num{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:black;line-height:1;margin-bottom:var(--sp-3)}
+    .step h4{font-size:13px;letter-spacing:1.5px;color:var(--navy);margin-bottom:var(--sp-3)}
+    .step p{font-size:13px;line-height:1.6}
+    .adm-req{padding:var(--sp-20) 0}
+    .req-tabs{display:flex;gap:0;border-bottom:1px solid var(--color-border);margin-bottom:var(--sp-10)}
+    .req-tab{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:var(--sp-4) var(--sp-8);color:var(--gray);border-bottom:2px solid transparent;cursor:pointer;transition:all var(--transition);background:none;border-top:none;border-left:none;border-right:none}
+    .req-tab:hover,.req-tab.active{color:var(--navy);border-bottom-color:var(--gold)}
+    .req-tab:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+    .req-panel{display:none}
+    .req-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-8)}
+    .req-card{background:var(--white);border:1px solid var(--color-border);padding:var(--sp-8)}
+    .req-card h4{font-size:13px;letter-spacing:1.5px;color:var(--navy);margin-bottom:var(--sp-5);padding-bottom:var(--sp-3);border-bottom:1px solid var(--color-border)}
+    .req-card ul{list-style:none}
+    .req-card li{font-size:14px;color:var(--charcoal-soft);padding:var(--sp-2) 0 var(--sp-2) var(--sp-5);border-bottom:1px solid rgba(0,0,0,0.04);position:relative}
+    .req-card li:last-child{border-bottom:none}
+    .req-card li::before{content:'—';position:absolute;left:0;color:var(--gold)}
+    /* ENQUIRY FORM */
+    .adm-enquiry{padding:var(--sp-20) 0;background:var(--ivory-warm)}
+    .enquiry-layout{display:grid;grid-template-columns:360px 1fr;gap:var(--sp-16);align-items:start}
+    .enquiry-info .overline{display:block;margin-bottom:var(--sp-3)}
+    .enquiry-info h2{color:var(--navy);margin-bottom:var(--sp-5)}
+    .enquiry-info p{margin-bottom:var(--sp-6)}
+    .contact-line{display:flex;align-items:flex-start;gap:var(--sp-4);margin-bottom:var(--sp-5)}
+    .contact-line__icon{font-size:20px;flex-shrink:0;margin-top:2px}
+    .contact-line__label{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:black;margin-bottom:3px}
+    .contact-line__value{font-size:14px;color:var(--charcoal);font-weight:500}
+    .enquiry-form{background:var(--white);border:1px solid var(--color-border);padding:var(--sp-10)}
+    .enquiry-form__title{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--navy);margin-bottom:var(--sp-6);padding-bottom:var(--sp-4);border-bottom:1px solid var(--color-border);text-transform:none;letter-spacing:0}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-5)}
+    /* JS Validation feedback */
+    .form-control.js-error{border-color:#DC2626;box-shadow:0 0 0 3px rgba(220,38,38,0.07)}
+    .form-control.js-ok{border-color:#16A34A;box-shadow:0 0 0 3px rgba(22,163,74,0.07)}
+    .field-error{display:none;font-family:'DM Sans',sans-serif;font-size:12px;color:#DC2626;margin-top:4px}
+    .field-error.show{display:block}
+    /* Radio / checkbox groups */
+    .radio-group,.checkbox-group{border:none;padding:0;margin:0 0 var(--sp-6) 0}
+    .radio-group legend,.checkbox-group legend{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--charcoal-mid);margin-bottom:var(--sp-3);display:block;width:100%}
+    .radio-item,.check-item{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-2);cursor:pointer}
+    .radio-item input,.check-item input{width:16px;height:16px;accent-color:var(--navy);cursor:pointer;flex-shrink:0}
+    .radio-item label,.check-item label{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--charcoal-soft);cursor:pointer}
+    .success-banner{display:none;background:rgba(22,163,74,0.06);border:1px solid rgba(22,163,74,0.25);border-left:3px solid #16A34A;padding:var(--sp-5) var(--sp-6);margin-top:var(--sp-6);font-family:'DM Sans',sans-serif;font-size:14px;color:#166534;line-height:1.6}
+    .success-banner.show{display:block}
+    @media(max-width:900px){.adm-about__grid,.enquiry-layout{grid-template-columns:1fr}.steps-grid{grid-template-columns:repeat(2,1fr)}.req-panel.active{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}}
+    @media(max-width:600px){.steps-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="Stonebridge University homepage">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Stonebridge crest" style="width:44px;height:44px;flex-shrink:0">
+        <rect width="44" height="44" fill="#1E3A8A"/>
+        <path d="M22 6 L36 13 L36 22 C36 30 29 37 22 39 C15 37 8 30 8 22 L8 13 Z" fill="none" stroke="#C6A75E" stroke-width="1.5"/>
+        <text x="22" y="27" text-anchor="middle" font-family="Playfair Display,serif" font-size="13" font-weight="700" fill="#C6A75E">SB</text>
+        <line x1="13" y1="32" x2="31" y2="32" stroke="#C6A75E" stroke-width="0.75" opacity="0.5"/>
+      </svg>
+      <div class="nav__logo-text"><span class="nav__logo-name">Stonebridge</span><span class="nav__logo-sub">School of Business &amp; Finance</span></div>
+    </a>
+    <ul class="nav__links" role="menubar">
+      <li class="nav__item" role="none"><a href="index.html" class="nav__link" role="menuitem">Home</a></li>
+      <li class="nav__item" role="none"><a href="programmes.html" class="nav__link" role="menuitem" aria-haspopup="true">Programmes &#9660;</a>
+        <div class="nav__dropdown" role="menu"><a href="programmes.html#foundation" class="nav__dropdown-link" role="menuitem">Foundation</a><a href="programmes.html#undergraduate" class="nav__dropdown-link" role="menuitem">Undergraduate</a><a href="programmes.html#postgraduate" class="nav__dropdown-link" role="menuitem">Postgraduate</a><a href="courses.html" class="nav__dropdown-link" role="menuitem">Browse All Courses</a></div>
+      </li>
+      <li class="nav__item" role="none"><a href="departments.html" class="nav__link" role="menuitem" aria-haspopup="true">Departments &#9660;</a>
+        <div class="nav__dropdown" role="menu"><a href="departments.html#finance" class="nav__dropdown-link" role="menuitem">Finance &amp; Banking</a><a href="departments.html#management" class="nav__dropdown-link" role="menuitem">Management &amp; Strategy</a><a href="departments.html#marketing" class="nav__dropdown-link" role="menuitem">Marketing &amp; Commerce</a></div>
+      </li>
+      <li class="nav__item" role="none"><a href="admissions.html" class="nav__link active" role="menuitem" aria-haspopup="true" aria-current="page">Admissions &#9660;</a>
+        <div class="nav__dropdown" role="menu"><a href="admissions.html#about" class="nav__dropdown-link" role="menuitem">About Admissions</a><a href="admissions.html#requirements" class="nav__dropdown-link" role="menuitem">Entry Requirements</a><a href="admissions.html#enquiry" class="nav__dropdown-link" role="menuitem">Submit an Enquiry</a></div>
+      </li>
+      <li class="nav__item" role="none"><a href="about.html" class="nav__link" role="menuitem" aria-haspopup="true">About &#9660;</a>
+        <div class="nav__dropdown" role="menu"><a href="about.html" class="nav__dropdown-link" role="menuitem">About the University</a><a href="research.html" class="nav__dropdown-link" role="menuitem">Research &amp; Publications</a><a href="alumni.html" class="nav__dropdown-link" role="menuitem">Alumni Network</a><a href="contact.html" class="nav__dropdown-link" role="menuitem">Contact Us</a></div>
+      </li>
+    </ul>
+    <a href="#enquiry" class="nav__cta" aria-label="Apply Now">Apply Now</a>
+    <button class="nav__toggle" aria-label="Toggle mobile menu" aria-expanded="false" onclick="var l=this.closest('.nav').querySelector('.nav__links');var o=l.classList.toggle('open');this.setAttribute('aria-expanded',o)"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-body">
+<section class="page-hero" aria-labelledby="adm-h1">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Admissions</span></nav>
+    <span class="overline">Joining Stonebridge</span>
+    <h1 id="adm-h1">Admissions</h1>
+    <p class="lead">Everything you need to know about applying to the Stonebridge University School of Business &amp; Finance — entry requirements, key dates, and how to submit your enquiry.</p>
+  </div>
+</section>
+
+<section class="adm-about" id="about" aria-labelledby="about-h2">
+  <div class="container">
+    <div class="adm-about__grid">
+      <div class="adm-about__text">
+        <span class="overline">About Admissions</span>
+        <h2 id="about-h2">How We Select Students</h2>
+        <p>We seek students who demonstrate intellectual curiosity, analytical ability, and the drive to make a difference in the world of business and finance.</p>
+        <p>We consider each application holistically. Academic achievement is important, but we also value personal statement quality, contextual factors, and evidence of wider engagement with business and economics.</p>
+        <p>Home undergraduate students apply through UCAS. International and postgraduate applicants apply directly through our Admissions Portal.</p>
+        <div style="display:flex;gap:var(--sp-4);margin-top:var(--sp-6);flex-wrap:wrap">
+          <a href="#enquiry" class="btn btn--primary">Submit an Enquiry</a>
+          <a href="#requirements" class="btn btn--outline">Entry Requirements</a>
+        </div>
+      </div>
+      <div>
+        <div class="key-dates" role="complementary" aria-label="Key application dates">
+          <div class="key-dates__title">Key Dates 2025&ndash;26</div>
+          <div class="key-date"><span class="key-date__label">UCAS Deadline (Undergraduate)</span><span class="key-date__date">15 Jan 2025</span></div>
+          <div class="key-date"><span class="key-date__label">Foundation Applications Close</span><span class="key-date__date">28 Feb 2025</span></div>
+          <div class="key-date"><span class="key-date__label">Postgraduate Rolling Deadline</span><span class="key-date__date">1 Mar 2025</span></div>
+          <div class="key-date"><span class="key-date__label">Interview Invitations Sent</span><span class="key-date__date">Mar&ndash;Apr 2025</span></div>
+          <div class="key-date"><span class="key-date__label">Offer Letters Issued</span><span class="key-date__date">Apr&ndash;May 2025</span></div>
+          <div class="key-date"><span class="key-date__label">Enrolment &amp; Induction</span><span class="key-date__date">Sep 2025</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="adm-process">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <span class="overline">Application Journey</span>
+      <h2>How to Apply</h2>
+      <p class="lead">Our application process is clear and straightforward.</p>
+      <span class="section-header__rule" aria-hidden="true"></span>
+    </div>
+    <div class="steps-grid" role="list">
+      <div class="step" role="listitem"><div class="step__num" aria-hidden="true">01</div><h4>Research &amp; Choose</h4><p>Explore programmes, attend an open day, or submit an enquiry.</p></div>
+      <div class="step" role="listitem"><div class="step__num" aria-hidden="true">02</div><h4>Prepare Application</h4><p>Gather transcripts, personal statement, references and language results.</p></div>
+      <div class="step" role="listitem"><div class="step__num" aria-hidden="true">03</div><h4>Submit</h4><p>UG via UCAS. Postgraduate and Foundation directly through our portal.</p></div>
+      <div class="step" role="listitem"><div class="step__num" aria-hidden="true">04</div><h4>Decision &amp; Enrol</h4><p>Receive your offer, accept your place, and confirm enrolment.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="adm-req" id="requirements" aria-labelledby="req-h2">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Eligibility</span>
+      <h2 id="req-h2">Entry Requirements</h2>
+      <span class="section-header__rule" aria-hidden="true"></span>
+    </div>
+    <div class="req-tabs" role="tablist" aria-label="Entry levels">
+      <button class="req-tab active" role="tab" aria-selected="true"  aria-controls="req-f"  id="tab-f"  onclick="showReq('f',this)">Foundation</button>
+      <button class="req-tab"        role="tab" aria-selected="false" aria-controls="req-ug" id="tab-ug" onclick="showReq('ug',this)">Undergraduate</button>
+      <button class="req-tab"        role="tab" aria-selected="false" aria-controls="req-pg" id="tab-pg" onclick="showReq('pg',this)">Postgraduate</button>
+    </div>
+    <div id="req-f" class="req-panel active" role="tabpanel" aria-labelledby="tab-f">
+      <div class="req-card"><h4>Academic Requirements</h4><ul><li>Minimum 5 GCSEs at grade C/4 or above</li><li>Must include English Language and Mathematics</li><li>No A-Level requirement for Foundation entry</li><li>Mature applicants (21+) considered on merit</li></ul></div>
+      <div class="req-card"><h4>English Language (International)</h4><ul><li>IELTS Academic: 5.5 overall</li><li>No component below 5.0</li><li>TOEFL iBT: 72 overall</li><li>Pre-sessional English programme available</li></ul></div>
+    </div>
+    <div id="req-ug" class="req-panel" role="tabpanel" aria-labelledby="tab-ug">
+      <div class="req-card"><h4>Academic Requirements</h4><ul><li>AAB&ndash;ABB at A-Level (typical offer)</li><li>International Baccalaureate: 34&ndash;36 points</li><li>GCSE Mathematics grade B/6 or above required</li><li>Foundation Year Distinction: guaranteed entry</li></ul></div>
+      <div class="req-card"><h4>English Language (International)</h4><ul><li>IELTS Academic: 6.5 overall</li><li>No component below 6.0</li><li>TOEFL iBT: 88 overall</li><li>Cambridge C1 Advanced: Grade B or above</li></ul></div>
+    </div>
+    <div id="req-pg" class="req-panel" role="tabpanel" aria-labelledby="tab-pg">
+      <div class="req-card"><h4>Academic Requirements</h4><ul><li>Minimum 2:1 Bachelor&rsquo;s degree</li><li>MBA requires 3+ years professional experience</li><li>Two references required</li><li>Personal statement: 600&ndash;800 words</li></ul></div>
+      <div class="req-card"><h4>English Language (International)</h4><ul><li>IELTS Academic: 7.0 overall</li><li>No component below 6.5</li><li>TOEFL iBT: 100 overall</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENQUIRY FORM -->
+<section class="adm-enquiry" id="enquiry" aria-labelledby="form-h2">
+  <div class="container">
+    <div class="enquiry-layout">
+      <div class="enquiry-info">
+        <span class="overline">Get in Touch</span>
+        <h2 id="form-h2">Submit an Enquiry</h2>
+        <p>Our Admissions Team answers questions about programmes, entry requirements, scholarships, and life at Stonebridge. We respond within two working days.</p>
+        <div class="contact-line"><span class="contact-line__icon" aria-hidden="true">&#128231;</span><div><div class="contact-line__label">Email</div><div class="contact-line__value">admissions@stonebridge.ac.uk</div></div></div>
+        <div class="contact-line"><span class="contact-line__icon" aria-hidden="true">&#128222;</span><div><div class="contact-line__label">Telephone</div><div class="contact-line__value">+44 (0)1865 270 000</div></div></div>
+        <div class="contact-line"><span class="contact-line__icon" aria-hidden="true">&#128336;</span><div><div class="contact-line__label">Office Hours</div><div class="contact-line__value">Monday&ndash;Friday, 09:00&ndash;17:00 GMT</div></div></div>
+        <div class="contact-line"><span class="contact-line__icon" aria-hidden="true">&#128205;</span><div><div class="contact-line__label">Visit Us</div><div class="contact-line__value">Wellington Hall, Oxford, OX1 2BF</div></div></div>
+      </div>
+
+      <div class="enquiry-form">
+        <h3 class="enquiry-form__title">Course Enquiry Form</h3>
+        <!-- FORM -->
+        <form id="eform" novalidate action="#" method="post">
+
+          <!-- Input PERSONAL -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="inp-fname">First Name <span class="req" aria-label="required">*</span></label>
+              <input type="text" id="inp-fname" name="firstName" class="form-control"
+                     placeholder="First name" aria-required="true" aria-describedby="err-fname" autocomplete="given-name">
+              <span class="field-error" id="err-fname" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inp-lname">Last Name <span class="req" aria-label="required">*</span></label>
+              <input type="text" id="inp-lname" name="lastName" class="form-control"
+                     placeholder="Last name" aria-required="true" aria-describedby="err-lname" autocomplete="family-name">
+              <span class="field-error" id="err-lname" role="alert" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <!-- EMAIL -->
+          <div class="form-group">
+            <label class="form-label" for="inp-email">Email Address <span class="req" aria-label="required">*</span></label>
+            <input type="text" id="inp-email" name="email" class="form-control"
+                   placeholder="your@email.com" aria-required="true" aria-describedby="err-email" autocomplete="email">
+            <span class="field-error" id="err-email" role="alert" aria-live="polite"></span>
+          </div>
+
+          <!-- Input TELEPHONE NUMBER -->
+          <div class="form-group">
+            <label class="form-label" for="inp-phone">Phone Number <em style="font-style:italic;font-weight:300;text-transform:none;letter-spacing:0;">(optional)</em></label>
+            <input type="text" id="inp-phone" name="phone" class="form-control"
+                   placeholder="+44 7700 000000" autocomplete="tel" aria-describedby="hint-phone">
+            <span id="hint-phone" style="display:block;font-size:11px;color:var(--gray);margin-top:4px">Include country code for international numbers</span>
+          </div>
+
+          <!-- Select PROGRAMME -->
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="inp-programme">Programme of Interest <span class="req" aria-label="required">*</span></label>
+              <select id="inp-programme" name="programme" class="form-control"
+                      aria-required="true" aria-describedby="err-programme">
+                <option value="">Select a programme&hellip;</option>
+                <optgroup label="Foundation"><option value="FND101">Foundation in Business &amp; Economics</option></optgroup>
+                <optgroup label="Undergraduate">
+                  <option value="BSC001">BSc Business &amp; Finance</option>
+                  <option value="BSC002">BSc Accounting &amp; Financial Management</option>
+                  <option value="BSC003">BSc Economics &amp; Investment</option>
+                  <option value="BSC004">BSc International Business &amp; Marketing</option>
+                  <option value="BSC005">BSc Banking &amp; Risk Management</option>
+                  <option value="BSC006">BSc Business Management &amp; Strategy</option>
+                </optgroup>
+                <optgroup label="Postgraduate">
+                  <option value="MSC001">MSc Financial Management</option>
+                  <option value="MSC002">MSc Banking &amp; International Finance</option>
+                  <option value="MSC003">MSc Strategic Management</option>
+                  <option value="MSC004">MSc Marketing Analytics &amp; Commerce</option>
+                  <option value="MBA001">MBA</option>
+                  <option value="MRS001">MRes Business &amp; Finance Research</option>
+                </optgroup>
+                <option value="general">General Enquiry</option>
+              </select>
+              <span class="field-error" id="err-programme" role="alert" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inp-year">Intended Entry Year</label>
+              <select id="inp-year" name="entryYear" class="form-control" aria-label="Select entry year">
+                <option value="">Select year&hellip;</option>
+                <option value="2025">2025&ndash;26</option>
+                <option value="2026">2026&ndash;27</option>
+                <option value="2027">2027&ndash;28</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Select STATUS -->
+          <div class="form-group">
+            <fieldset class="radio-group">
+              <legend class="form-label">Student Status</legend>
+              <div class="radio-item"><input type="radio" id="r-home" name="status" value="home"><label for="r-home">Home (UK)</label></div>
+              <div class="radio-item"><input type="radio" id="r-eu"   name="status" value="eu"><label for="r-eu">EU / EEA</label></div>
+              <div class="radio-item"><input type="radio" id="r-intl" name="status" value="international"><label for="r-intl">International</label></div>
+            </fieldset>
+          </div>
+
+          <!-- Select INTEREST AREAS -->
+          <div class="form-group">
+            <fieldset class="checkbox-group">
+              <legend class="form-label">Areas of Interest</legend>
+              <div class="check-item"><input type="checkbox" id="c-fin" name="interests" value="finance"><label for="c-fin">Finance &amp; Banking</label></div>
+              <div class="check-item"><input type="checkbox" id="c-mgmt" name="interests" value="management"><label for="c-mgmt">Management &amp; Strategy</label></div>
+              <div class="check-item"><input type="checkbox" id="c-mkt" name="interests" value="marketing"><label for="c-mkt">Marketing &amp; Commerce</label></div>
+              <div class="check-item"><input type="checkbox" id="c-res" name="interests" value="research"><label for="c-res">Research Opportunities</label></div>
+            </fieldset>
+          </div>
+
+          <!-- MESSAGE -->
+          <div class="form-group">
+            <label class="form-label" for="inp-msg">Your Message</label>
+            <textarea id="inp-msg" name="message" class="form-control" rows="4"
+                      placeholder="Tell us about your background and what you would like to know&hellip;"
+                      aria-label="Your enquiry message"></textarea>
+          </div>
+
+          <!-- Consent checkbox -->
+          <div class="form-group">
+            <div class="check-item">
+              <input type="checkbox" id="c-consent" name="consent" value="yes">
+              <label for="c-consent">I consent to Stonebridge University contacting me about my enquiry and relevant programme information.</label>
+            </div>
+          </div>
+
+          <button type="button" id="submit-btn" class="btn btn--primary"
+                  style="width:100%;font-size:13px;letter-spacing:2px;"
+                  onclick="validateForm()"
+                  aria-label="Submit your course enquiry">
+            Submit Enquiry
+          </button>
+
+          <div class="success-banner" id="success-msg" role="alert" aria-live="assertive">
+            <strong>Thank you for your enquiry!</strong><br>
+            A member of our Admissions Team will be in touch within two working days at the email address provided.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div><div class="footer__brand-name">Stonebridge University</div><div class="footer__brand-tagline">School of Business &amp; Finance</div><p class="footer__brand-desc">Shaping principled leaders and analytical minds since 1847.</p></div>
+      <div><div class="footer__col-heading">Programmes</div><ul class="footer__links"><li><a href="programmes.html#foundation" class="footer__link">Foundation</a></li><li><a href="programmes.html#undergraduate" class="footer__link">Undergraduate</a></li><li><a href="programmes.html#postgraduate" class="footer__link">Postgraduate</a></li><li><a href="courses.html" class="footer__link">Browse All Courses</a></li></ul></div>
+      <div><div class="footer__col-heading">The School</div><ul class="footer__links"><li><a href="about.html" class="footer__link">About Us</a></li><li><a href="departments.html" class="footer__link">Departments</a></li><li><a href="research.html" class="footer__link">Research</a></li><li><a href="alumni.html" class="footer__link">Alumni</a></li></ul></div>
+      <div><div class="footer__col-heading">Contact</div><ul class="footer__links"><li><a href="admissions.html#enquiry" class="footer__link">Submit an Enquiry</a></li><li><a href="contact.html" class="footer__link">Contact Us</a></li><li><a href="admissions.html" class="footer__link">How to Apply</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">&copy; 2025 Stonebridge University School of Business &amp; Finance.</span><span class="footer__copy">Oxford, England &middot; OX1 2BF</span></div>
+  </div>
+</footer>
+</div>
+
+<script>
+/* Tab switching */
+function showReq(id,btn){
+  document.querySelectorAll('.req-panel').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.req-tab').forEach(function(t){t.classList.remove('active');t.setAttribute('aria-selected','false')});
+  document.getElementById('req-'+id).classList.add('active');
+  btn.classList.add('active');btn.setAttribute('aria-selected','true');
+}
+
+/*  Validation helpers  */
+function markError(fId,eId,msg){
+  var f=document.getElementById(fId),e=document.getElementById(eId);
+  f.classList.remove('js-ok');f.classList.add('js-error');
+  e.textContent=msg;e.classList.add('show');
+  return false;
+}
+function markOK(fId,eId){
+  var f=document.getElementById(fId),e=document.getElementById(eId);
+  f.classList.remove('js-error');f.classList.add('js-ok');
+  e.textContent='';e.classList.remove('show');
+  return true;
+}
+
+/* First Name (not empty, min 2 chars) */
+function checkFirstName(){
+  var v=document.getElementById('inp-fname').value.trim();
+  if(v.length===0) return markError('inp-fname','err-fname','First name is required.');
+  if(v.length<2)   return markError('inp-fname','err-fname','First name must be at least 2 characters.');
+  return markOK('inp-fname','err-fname');
+}
+
+/* Last Name (not empty, min 2 chars) */
+function checkLastName(){
+  var v=document.getElementById('inp-lname').value.trim();
+  if(v.length===0) return markError('inp-lname','err-lname','Last name is required.');
+  if(v.length<2)   return markError('inp-lname','err-lname','Last name must be at least 2 characters.');
+  return markOK('inp-lname','err-lname');
+}
+
+/* ── Email (not empty, valid pattern) */
+function checkEmail(){
+  var v=document.getElementById('inp-email').value.trim();
+  var pat=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(v.length===0) return markError('inp-email','err-email','Email address is required.');
+  if(!pat.test(v)) return markError('inp-email','err-email','Please enter a valid email (e.g. name@domain.com).');
+  return markOK('inp-email','err-email');
+}
+
+/* Programme (must not be blank option) */
+function checkProgramme(){
+  var v=document.getElementById('inp-programme').value;
+  if(!v||v.length===0) return markError('inp-programme','err-programme','Please select a programme or General Enquiry.');
+  return markOK('inp-programme','err-programme');
+}
+
+/* Main submit handler */
+function validateForm(){
+  var fn=checkFirstName();
+  var ln=checkLastName();
+  var em=checkEmail();
+  var pr=checkProgramme();
+  if(fn&&ln&&em&&pr){
+    var btn=document.getElementById('submit-btn');
+    btn.disabled=true;btn.textContent='Submitted ✓';
+    btn.style.background='#16A34A';btn.style.borderColor='#16A34A';
+    var s=document.getElementById('success-msg');
+    s.classList.add('show');
+    s.scrollIntoView({behavior:'smooth',block:'nearest'});
+  } else {
+    var first=document.querySelector('.form-control.js-error');
+    if(first){first.focus();}
+  }
+}
+
+/* Live blur validation */
+window.addEventListener('DOMContentLoaded',function(){
+  document.getElementById('inp-fname').addEventListener('blur',checkFirstName);
+  document.getElementById('inp-lname').addEventListener('blur',checkLastName);
+  document.getElementById('inp-email').addEventListener('blur',checkEmail);
+  document.getElementById('inp-programme').addEventListener('change',checkProgramme);
+});
+</script>
+</body>
+</html>
