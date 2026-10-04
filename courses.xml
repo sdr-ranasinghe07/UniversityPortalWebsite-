@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<courses>
+
+  <!-- FOUNDATION COURSES -->
+  <course>
+    <code>FND101</code>
+    <title>Introduction to Business and Markets</title>
+    <level>Foundation</level>
+    <department>Finance and Banking</department>
+    <description>An accessible introduction to how markets function, covering supply and demand, price mechanisms, and the role of firms and consumers in the modern economy.</description>
+    <duration>1 Year</duration>
+    <entryRequirements>Minimum 5 GCSEs at grade C/4 or above including English and Mathematics. No prior business knowledge required.</entryRequirements>
+    <fee>6500</fee>
+  </course>
+
+  <course>
+    <code>FND102</code>
+    <title>Quantitative Methods for Business</title>
+    <level>Foundation</level>
+    <department>Finance and Banking</department>
+    <description>Builds the mathematical and statistical foundations needed for undergraduate finance and economics, covering algebra, statistics, data interpretation and financial arithmetic.</description>
+    <duration>1 Year</duration>
+    <entryRequirements>Minimum 5 GCSEs at grade C/4 or above including English and Mathematics.</entryRequirements>
+    <fee>6500</fee>
+  </course>
+
+  <course>
+    <code>FND103</code>
+    <title>Academic English and Communication</title>
+    <level>Foundation</level>
+    <department>Management and Strategy</department>
+    <description>Develops the written and oral communication skills essential for university-level study, including essay writing, critical reading, and academic presentation.</description>
+    <duration>1 Year</duration>
+    <entryRequirements>IELTS 5.5 overall (no component below 5.0) for international students.</entryRequirements>
+    <fee>6500</fee>
+  </course>
+
+  <course>
+    <code>FND104</code>
+    <title>Principles of Accounting</title>
+    <level>Foundation</level>
+    <department>Finance and Banking</department>
+    <description>An introduction to double-entry bookkeeping, financial statements, and basic management accounting preparing students for undergraduate accounting modules.</description>
+    <duration>1 Year</duration>
+    <entryRequirements>Minimum 5 GCSEs at grade C/4 or above including Mathematics.</entryRequirements>
+    <fee>6500</fee>
+  </course>
+
+  <!-- UNDERGRADUATE COURSES -->
+  <course>
+    <code>BSC-BF</code>
+    <title>BSc Business and Finance</title>
+    <level>Undergraduate</level>
+    <department>Finance and Banking</department>
+    <description>Our flagship degree combining financial theory, strategic management, and applied economics with immersive industry placements.</description>
+    <duration>3 Years</duration>
+    <entryRequirements>AAB at A-Level; GCSE Grade B in Mathematics; IELTS 6.5 for international students.</entryRequirements>
+    <fee>9250</fee>
+  </course>
+
+  <course>
+    <code>BSC-AFM</code>
+    <title>BSc Accounting and Financial Management</title>
+    <level>Undergraduate</level>
+    <department>Finance and Banking</department>
+    <description>A professionally focused degree aligned with ICAEW, ACCA and CIMA accreditation pathways covering financial reporting, audit, taxation and management accounting.</description>
+    <duration>3 Years</duration>
+    <entryRequirements>AAB at A-Level; GCSE Grade B in Mathematics; IELTS 6.5 for international students.</entryRequirements>
+    <fee>9250</fee>
+  </course>
+
+  <course>
+    <code>BSC-EI</code>
+    <title>BSc Economics and Investment</title>
+    <level>Undergraduate</level>
+    <department>Finance and Banking</department>
+    <description>Blends economic theory with applied investment analysis developing quantitative skills alongside a deep understanding of macro and microeconomic policy.</description>
+    <duration>3 Years</duration>
+    <entryRequirements>ABB at A-Level including Mathematics; IELTS 6.5 for international students.</entryRequirements>
+    <fee>9250</fee>
+  </course>
+
+  <course>
+    <code>BSC-IBM</code>
+    <title>BSc International Business and Marketing</title>
+    <level>Undergraduate</level>
+    <department>Marketing and Commerce</department>
+    <description>Examines global commerce, cross-cultural management, digital marketing, and international trade law within a comparative international framework.</description>
+    <duration>3 Years</duration>
+    <entryRequirements>ABB at A-Level; IELTS 6.5 for international students.</entryRequirements>
+    <fee>9250</fee>
+  </course>
+
+  <course>
+    <code>BSC-BRM</code>
+    <title>BSc Banking and Risk Management</title>
+    <level>Undergraduate</level>
+    <department>Finance and Banking</department>
+    <description>Specialist preparation for careers in financial services covering credit risk, Basel regulation, derivatives, and the structure of global banking systems.</description>
+    <duration>3 Years</duration>
+    <entryRequirements>AAB at A-Level including Mathematics; IELTS 6.5 for international students.</entryRequirements>
+    <fee>9250</fee>
+  </course>
+
+  <course>
+    <code>BSC-BMS</code>
+    <title>BSc Business Management and Strategy</title>
+    <level>Undergraduate</level>
+    <department>Management and Strategy</department>
+    <description>Develops strategic thinking, leadership capability and entrepreneurial judgement with modules in operations, HR, innovation, and corporate governance.</description>
+    <duration>3 Years</duration>
+    <entryRequirements>ABB at A-Level; IELTS 6.5 for international students.</entryRequirements>
+    <fee>9250</fee>
+  </course>
+
+  <!-- POSTGRADUATE COURSES -->
+  <course>
+    <code>MSC-FM</code>
+    <title>MSc Financial Management</title>
+    <level>Postgraduate</level>
+    <department>Finance and Banking</department>
+    <description>An intensive programme covering advanced corporate finance, asset pricing, portfolio management, and quantitative methods for financial decision-making.</description>
+    <duration>12 Months</duration>
+    <entryRequirements>Minimum 2:1 Bachelor degree in a relevant subject; IELTS 7.0; two references required.</entryRequirements>
+    <fee>22500</fee>
+  </course>
+
+  <course>
+    <code>MSC-BIF</code>
+    <title>MSc Banking and International Finance</title>
+    <level>Postgraduate</level>
+    <department>Finance and Banking</department>
+    <description>Examines global banking operations, financial regulation, central bank policy, foreign exchange markets, and the architecture of international capital flows.</description>
+    <duration>12 Months</duration>
+    <entryRequirements>Minimum 2:1 Bachelor degree; IELTS 7.0; two references required.</entryRequirements>
+    <fee>22500</fee>
+  </course>
+
+  <course>
+    <code>MSC-SM</code>
+    <title>MSc Strategic Management</title>
+    <level>Postgraduate</level>
+    <department>Management and Strategy</department>
+    <description>Develops senior leadership and strategic reasoning covering competitive strategy, innovation management, mergers and acquisitions, and corporate transformation.</description>
+    <duration>12 Months</duration>
+    <entryRequirements>Minimum 2:1 Bachelor degree; IELTS 7.0; two references required.</entryRequirements>
+    <fee>22500</fee>
+  </course>
+
+  <course>
+    <code>MSC-MAC</code>
+    <title>MSc Marketing Analytics and Commerce</title>
+    <level>Postgraduate</level>
+    <department>Marketing and Commerce</department>
+    <description>Combines marketing strategy with data analytics covering digital commerce, consumer insights, programmatic advertising, and marketing technology platforms.</description>
+    <duration>12 Months</duration>
+    <entryRequirements>Minimum 2:1 Bachelor degree; IELTS 7.0; two references required.</entryRequirements>
+    <fee>22500</fee>
+  </course>
+
+  <course>
+    <code>MBA</code>
+    <title>MBA Master of Business Administration</title>
+    <level>Postgraduate</level>
+    <department>Management and Strategy</department>
+    <description>Full-time MBA designed for professionals with three or more years of experience combining leadership development, strategy, finance, and a major consultancy project.</description>
+    <duration>12 Months</duration>
+    <entryRequirements>Minimum 2:1 degree; 3 or more years professional experience; IELTS 7.0; two references required.</entryRequirements>
+    <fee>28000</fee>
+  </course>
+
+  <course>
+    <code>MRES-BF</code>
+    <title>MRes Business and Finance Research</title>
+    <level>Postgraduate</level>
+    <department>Finance and Banking</department>
+    <description>A research-focused masters degree providing advanced training in qualitative and quantitative research methods designed as preparation for doctoral study.</description>
+    <duration>12 Months</duration>
+    <entryRequirements>Minimum 2:1 degree; IELTS 7.0; research proposal required.</entryRequirements>
+    <fee>19500</fee>
+  </course>
+
+</courses>
