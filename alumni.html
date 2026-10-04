@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alumni Network — Stonebridge University</title>
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .page-body { padding-top: var(--nav-h); }
+    .page-hero { background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy) 100%); padding: var(--sp-20) 0 var(--sp-16); border-bottom: 2px solid var(--gold-dark); }
+    .page-hero .overline { display: block; margin-bottom: var(--sp-3); color: var(--gold); }
+    .page-hero h1 { color: var(--ivory); margin-bottom: var(--sp-4); }
+    .page-hero .lead { color: rgba(250,249,246,0.65); max-width: 600px; }
+    .breadcrumb { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-6); font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(250,249,246,0.4); }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+
+    /* Network stats */
+    .alumni-stats { background: var(--ivory-warm); padding: var(--sp-16) 0; border-bottom: 1px solid var(--color-border); }
+    .alumni-stats__grid { display: grid; grid-template-columns: repeat(4,1fr); gap: var(--sp-6); }
+    .alumni-stat {
+      text-align: center;
+      padding: var(--sp-8);
+      background: var(--white);
+      border: 1px solid var(--color-border);
+    }
+    .alumni-stat__num { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: var(--sp-2); }
+    .alumni-stat__label { font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); }
+
+    /* Notable alumni */
+    .notable { padding: var(--sp-20) 0; }
+    .alumni-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-6); margin-top: var(--sp-10); }
+    .alumni-card {
+      background: var(--white);
+      border: 1px solid var(--color-border);
+      padding: var(--sp-8);
+      position: relative;
+    }
+    .alumni-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, var(--gold-dark), var(--gold));
+    }
+    .alumni-card__initial {
+      width: 56px; height: 56px;
+      background: var(--navy-tint);
+      border: 2px solid var(--navy);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700; color: var(--navy);
+      margin-bottom: var(--sp-4);
+    }
+    .alumni-card__name { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 600; color: var(--charcoal); margin-bottom: 3px; }
+    .alumni-card__role { font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: var(--sp-3); }
+    .alumni-card__year { font-family: 'DM Sans',sans-serif; font-size: 11px; color: var(--gray); margin-bottom: var(--sp-4); }
+    .alumni-card p { font-size: 13px; color: var(--charcoal-soft); line-height: 1.65; }
+
+    /* Benefits */
+    .alumni-benefits { padding: var(--sp-20) 0; background: var(--navy-deeper); }
+    .alumni-benefits .section-header .overline { color: var(--gold); }
+    .alumni-benefits .section-header h2 { color: var(--ivory); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: var(--sp-6); }
+    .benefit-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: var(--sp-8);
+    }
+    .benefit-card__icon { font-size: 28px; margin-bottom: var(--sp-4); display: block; }
+    .benefit-card h4 { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--ivory); margin-bottom: var(--sp-3); text-transform: none; }
+    .benefit-card p { font-size: 14px; color: rgba(250,249,246,0.55); line-height: 1.7; }
+
+    /* Events */
+    .alumni-events { padding: var(--sp-20) 0; background: var(--ivory-warm); }
+    .events-list { display: flex; flex-direction: column; gap: var(--sp-4); margin-top: var(--sp-8); }
+    .event-item {
+      background: var(--white);
+      border: 1px solid var(--color-border);
+      padding: var(--sp-6) var(--sp-8);
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: var(--sp-6);
+      align-items: center;
+    }
+    .event-date {
+      text-align: center;
+      background: var(--navy);
+      padding: var(--sp-3);
+    }
+    .event-date__day { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--ivory); line-height: 1; }
+    .event-date__month { font-family: 'DM Sans',sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .event__title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--charcoal); margin-bottom: 4px; }
+    .event__detail { font-family: 'DM Sans',sans-serif; font-size: 12px; color: var(--gray); }
+
+    /* Connect CTA */
+    .alumni-connect {
+      padding: var(--sp-20) 0;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-deeper) 100%);
+      text-align: center;
+    }
+    .alumni-connect .overline { color: var(--gold); display: block; margin-bottom: var(--sp-3); }
+    .alumni-connect h2 { color: var(--ivory); margin-bottom: var(--sp-4); }
+    .alumni-connect p { color: rgba(250,249,246,0.65); max-width: 480px; margin: 0 auto var(--sp-8); }
+    .alumni-form {
+      display: flex; gap: var(--sp-4); justify-content: center; flex-wrap: wrap;
+      max-width: 500px; margin: 0 auto;
+    }
+    .alumni-form input { flex: 1; min-width: 220px; }
+
+    @media (max-width: 900px) {
+      .alumni-stats__grid { grid-template-columns: repeat(2,1fr); }
+      .alumni-grid, .benefits-grid { grid-template-columns: repeat(2,1fr); }
+      .event-item { grid-template-columns: 60px 1fr; }
+      .event-item .btn { display: none; }
+    }
+    @media (max-width: 600px) {
+      .alumni-grid, .benefits-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;flex-shrink:0;"><rect width="44" height="44" fill="#1E3A8A"/><path d="M22 6 L36 13 L36 22 C36 30 29 37 22 39 C15 37 8 30 8 22 L8 13 Z" fill="none" stroke="#C6A75E" stroke-width="1.5"/><text x="22" y="27" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#C6A75E">SB</text><line x1="13" y1="32" x2="31" y2="32" stroke="#C6A75E" stroke-width="0.75" opacity="0.5"/></svg>
+      <div class="nav__logo-text"><span class="nav__logo-name">Stonebridge</span><span class="nav__logo-sub">School of Business & Finance</span></div>
+    </a>
+    <ul class="nav__links">
+      <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+      <li class="nav__item"><a href="programmes.html" class="nav__link">Programmes ▾</a><div class="nav__dropdown"><a href="programmes.html#foundation" class="nav__dropdown-link">Foundation</a><a href="programmes.html#undergraduate" class="nav__dropdown-link">Undergraduate</a><a href="programmes.html#postgraduate" class="nav__dropdown-link">Postgraduate</a><a href="courses.html" class="nav__dropdown-link">Browse All Courses</a></div></li>
+      <li class="nav__item"><a href="departments.html" class="nav__link">Departments ▾</a><div class="nav__dropdown"><a href="departments.html#finance" class="nav__dropdown-link">Finance & Banking</a><a href="departments.html#management" class="nav__dropdown-link">Management & Strategy</a><a href="departments.html#marketing" class="nav__dropdown-link">Marketing & Commerce</a></div></li>
+      <li class="nav__item"><a href="admissions.html" class="nav__link">Admissions ▾</a><div class="nav__dropdown"><a href="admissions.html#about" class="nav__dropdown-link">About Admissions</a><a href="admissions.html#requirements" class="nav__dropdown-link">Entry Requirements</a><a href="admissions.html#enquiry" class="nav__dropdown-link">Submit an Enquiry</a></div></li>
+      <li class="nav__item"><a href="about.html" class="nav__link active">About ▾</a><div class="nav__dropdown"><a href="about.html" class="nav__dropdown-link">About the University</a><a href="research.html" class="nav__dropdown-link">Research & Publications</a><a href="alumni.html" class="nav__dropdown-link">Alumni Network</a><a href="contact.html" class="nav__dropdown-link">Contact Us</a></div></li>
+    </ul>
+    <a href="admissions.html#enquiry" class="nav__cta">Apply Now</a>
+    <button class="nav__toggle" onclick="this.closest('.nav').querySelector('.nav__links').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="page-body">
+<section class="page-hero">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><a href="about.html">About</a><span>/</span><span>Alumni Network</span></div>
+    <span class="overline">The Stonebridge Community</span>
+    <h1>Alumni Network</h1>
+    <p class="lead">Join a global community of over 18,000 Stonebridge graduates leading organisations, shaping markets, and making a difference across the world.</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="alumni-stats">
+  <div class="container">
+    <div class="alumni-stats__grid">
+      <div class="alumni-stat"><div class="alumni-stat__num">18,400+</div><div class="alumni-stat__label">Global Alumni</div></div>
+      <div class="alumni-stat"><div class="alumni-stat__num">62</div><div class="alumni-stat__label">Countries</div></div>
+      <div class="alumni-stat"><div class="alumni-stat__num">94%</div><div class="alumni-stat__label">Employed Within 6 Months</div></div>
+      <div class="alumni-stat"><div class="alumni-stat__num">£58K</div><div class="alumni-stat__label">Median Starting Salary (PG)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTABLE ALUMNI -->
+<section class="notable">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <span class="overline">Distinguished Graduates</span>
+      <h2>Notable Alumni</h2>
+      <span class="section-header__rule"></span>
+    </div>
+    <div class="alumni-grid">
+      <div class="alumni-card"><div class="alumni-card__initial">WC</div><div class="alumni-card__name">William Cartwright</div><div class="alumni-card__role">Chief Executive Officer</div><div class="alumni-card__year">BSc Business & Finance, 1994 · Barclays Group</div><p>Led Barclays through its digital transformation strategy. A board-level advisor on sustainable finance policy.</p></div>
+      <div class="alumni-card"><div class="alumni-card__initial">PL</div><div class="alumni-card__name">Priya Lakshmanan</div><div class="alumni-card__role">Partner, Private Equity</div><div class="alumni-card__year">MSc Financial Management, 2007 · Blackstone</div><p>Leads Blackstone's European infrastructure fund. Named in Forbes 30 Under 30 Finance in 2012.</p></div>
+      <div class="alumni-card"><div class="alumni-card__initial">TN</div><div class="alumni-card__name">Thomas Nakagawa</div><div class="alumni-card__role">Deputy Governor</div><div class="alumni-card__year">MBA, 2001 · Bank of Japan</div><p>Oversees monetary policy operations and international financial cooperation at the Bank of Japan.</p></div>
+      <div class="alumni-card"><div class="alumni-card__initial">AO</div><div class="alumni-card__name">Amelia Oduya</div><div class="alumni-card__role">Founder & CEO</div><div class="alumni-card__year">BSc Economics & Investment, 2011 · Meridian Capital</div><p>Founded one of Africa's leading impact investment funds, deploying over £400m in sustainable infrastructure.</p></div>
+      <div class="alumni-card"><div class="alumni-card__initial">RS</div><div class="alumni-card__name">Robert Schreiber</div><div class="alumni-card__role">Chief Financial Officer</div><div class="alumni-card__year">MSc Banking & International Finance, 2005 · Volkswagen AG</div><p>Responsible for the global treasury and investor relations function of one of Europe's largest corporations.</p></div>
+      <div class="alumni-card"><div class="alumni-card__initial">SM</div><div class="alumni-card__name">Sophie Marchetti</div><div class="alumni-card__role">Executive Director</div><div class="alumni-card__year">MSc Strategic Management, 2009 · McKinsey & Company</div><p>Leads McKinsey's Financial Services practice in the UK and Ireland, advising FTSE 100 boards on transformation.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ALUMNI BENEFITS -->
+<section class="alumni-benefits">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <span class="overline">Lifelong Connection</span>
+      <h2>Alumni Benefits</h2>
+      <span class="section-header__rule"></span>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card"><span class="benefit-card__icon">📚</span><h4>Library Access</h4><p>Lifetime access to the Stonebridge Library and JSTOR, Bloomsbury, and FT Digital archives for continuing professional development.</p></div>
+      <div class="benefit-card"><span class="benefit-card__icon">🤝</span><h4>Mentorship Programme</h4><p>Connect with current students as a mentor, or access our senior alumni mentoring network to advance your own career.</p></div>
+      <div class="benefit-card"><span class="benefit-card__icon">🌐</span><h4>Global Alumni Chapters</h4><p>Active alumni chapters in London, New York, Dubai, Singapore, and Hong Kong — hosting regular networking events and panels.</p></div>
+      <div class="benefit-card"><span class="benefit-card__icon">🎓</span><h4>Executive Education Discount</h4><p>Alumni receive a 20% reduction on all Stonebridge executive education programmes and short courses.</p></div>
+      <div class="benefit-card"><span class="benefit-card__icon">📰</span><h4>Research & Insights</h4><p>Receive our quarterly Alumni Digest featuring the latest research, thought leadership, and industry analysis from Stonebridge faculty.</p></div>
+      <div class="benefit-card"><span class="benefit-card__icon">🏛️</span><h4>Campus Privileges</h4><p>Use of campus facilities including the Business Library, Wellington Hall, and college dining, subject to availability.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING EVENTS -->
+<section class="alumni-events">
+  <div class="container">
+    <div class="section-header">
+      <span class="overline">Alumni Calendar</span>
+      <h2>Upcoming Events</h2>
+      <span class="section-header__rule"></span>
+    </div>
+    <div class="events-list">
+      <div class="event-item">
+        <div class="event-date"><div class="event-date__day">14</div><div class="event-date__month">Feb</div></div>
+        <div><div class="event__title">Alumni Lecture: The Future of Central Banking</div><div class="event__detail">Wellington Hall, Oxford · 18:30 — Speaker: Gov. Thomas Nakagawa (BoJ, Class of 2001)</div></div>
+        <a href="contact.html" class="btn btn--outline">Register</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-date__day">8</div><div class="event-date__month">Mar</div></div>
+        <div><div class="event__title">London Alumni Networking Evening</div><div class="event__detail">The Gherkin, London · 19:00 — Open to all Stonebridge graduates</div></div>
+        <a href="contact.html" class="btn btn--outline">Register</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-date__day">22</div><div class="event-date__month">Apr</div></div>
+        <div><div class="event__title">Annual Alumni Gala Dinner</div><div class="event__detail">Bodleian Library, Oxford · 19:30 — Black tie · Alumni and guests</div></div>
+        <a href="contact.html" class="btn btn--outline">Register</a>
+      </div>
+      <div class="event-item">
+        <div class="event-date"><div class="event-date__day">12</div><div class="event-date__month">Jun</div></div>
+        <div><div class="event__title">Stonebridge Homecoming & Open Day</div><div class="event__detail">Oxford Campus · All day · Family-friendly · Campus tours available</div></div>
+        <a href="contact.html" class="btn btn--outline">Register</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="alumni-connect">
+  <div class="container">
+    <span class="overline">Stay Connected</span>
+    <h2>Join the Alumni Network</h2>
+    <p>Update your details, access alumni benefits, and stay connected with the Stonebridge community worldwide.</p>
+    <div class="alumni-form">
+      <input type="email" class="form-control" placeholder="Your alumni email address">
+      <button class="btn btn--gold" onclick="this.previousElementSibling.value=''; alert('Thank you! We will be in touch.')">Connect Now</button>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div><div class="footer__brand-name">Stonebridge University</div><div class="footer__brand-tagline">School of Business & Finance</div><p class="footer__brand-desc">Shaping principled leaders and analytical minds since 1847.</p></div>
+      <div><div class="footer__col-heading">Programmes</div><ul class="footer__links"><li><a href="programmes.html#foundation" class="footer__link">Foundation</a></li><li><a href="programmes.html#undergraduate" class="footer__link">Undergraduate</a></li><li><a href="programmes.html#postgraduate" class="footer__link">Postgraduate</a></li></ul></div>
+      <div><div class="footer__col-heading">The School</div><ul class="footer__links"><li><a href="about.html" class="footer__link">About Us</a></li><li><a href="departments.html" class="footer__link">Departments</a></li><li><a href="research.html" class="footer__link">Research</a></li><li><a href="alumni.html" class="footer__link">Alumni</a></li></ul></div>
+      <div><div class="footer__col-heading">Contact</div><ul class="footer__links"><li><a href="admissions.html#enquiry" class="footer__link">Enquire</a></li><li><a href="contact.html" class="footer__link">Contact Us</a></li><li><a href="admissions.html" class="footer__link">How to Apply</a></li></ul></div>
+    </div>
+    <div class="footer__bottom"><span class="footer__copy">© 2025 Stonebridge University School of Business & Finance.</span><span class="footer__copy">Oxford, England · OX1 2BF</span></div>
+  </div>
+</footer>
+</div>
+</body>
+</html>
