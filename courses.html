@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse All Courses — Stonebridge University School of Business &amp; Finance</title>
+  <link rel="stylesheet" href="global.css">
+  <style>
+    .page-body { padding-top: var(--nav-h); }
+    .page-hero { background: linear-gradient(135deg, var(--navy-deeper) 0%, var(--navy) 100%); padding: var(--sp-20) 0 var(--sp-16); border-bottom: 2px solid var(--gold-dark); }
+    .page-hero .overline { display: block; margin-bottom: var(--sp-3); color: var(--gold); }
+    .page-hero h1 { color: var(--ivory); margin-bottom: var(--sp-4); }
+    .page-hero .lead { color: rgba(250,249,246,0.65); max-width: 600px; }
+    .breadcrumb { display: flex; align-items: center; gap: var(--sp-2); margin-bottom: var(--sp-6); font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(250,249,246,0.4); }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--gold-light); }
+
+    .courses-layout { display: grid; grid-template-columns: 260px 1fr; gap: var(--sp-10); padding: var(--sp-16) 0; align-items: start; }
+
+    /* Sidebar */
+    .sidebar { position: sticky; top: calc(var(--nav-h) + var(--sp-6)); }
+    .sidebar__section { margin-bottom: var(--sp-8); }
+    .sidebar__heading { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: var(--sp-4); padding-bottom: var(--sp-3); border-bottom: 1px solid var(--color-border); }
+    .sidebar__filter { display: block; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 400; color: var(--charcoal-soft); padding: var(--sp-2) 0; cursor: pointer; border: none; background: none; text-align: left; width: 100%; transition: color var(--transition); }
+    .sidebar__filter:hover, .sidebar__filter.active { color: var(--navy); font-weight: 600; }
+    .sidebar__filter.active::before { content: '▶ '; font-size: 8px; color: var(--gold); }
+
+    /* Course list */
+    .course-list { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .course-row { display: grid; grid-template-columns: 80px 1fr auto; gap: var(--sp-5); align-items: center; background: var(--white); border: 1px solid var(--color-border); padding: var(--sp-5) var(--sp-6); transition: all var(--transition); text-decoration: none; }
+    .course-row:hover { border-color: var(--navy); box-shadow: var(--shadow-sm); transform: translateX(3px); }
+    .course-row__code { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dark); }
+    .course-row__title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--charcoal); margin-bottom: 3px; }
+    .course-row__meta { font-family: 'DM Sans', sans-serif; font-size: 12px; color: var(--gray); }
+    .course-row__badge { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; white-space: nowrap; }
+    .badge-found { background: var(--ivory-warm); color: var(--charcoal-soft); border: 1px solid var(--gray-light); }
+    .badge-ug    { background: var(--navy-tint);  color: var(--navy);        border: 1px solid rgba(30,58,138,0.15); }
+    .badge-pg    { background: var(--navy-deeper); color: var(--gold-light); border: 1px solid rgba(198,167,94,0.2); }
+    .courses-count { font-family: 'DM Sans', sans-serif; font-size: 12px; letter-spacing: 1px; color: var(--gray); margin-bottom: var(--sp-6); padding-bottom: var(--sp-4); border-bottom: 1px solid var(--color-border); }
+
+    /* XML section */
+    #xml-course-section { padding: var(--sp-16) 0; background: var(--ivory-warm); border-top: 1px solid var(--color-border); }
+    #xml-course-section .overline { display: block; margin-bottom: var(--sp-3); }
+    #xml-course-section h2 { color: var(--navy); margin-bottom: var(--sp-4); }
+
+    /* XML filter buttons — styled as buttons with CSS hover effect as required */
+    .xml-filter-bar { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; margin-bottom: var(--sp-8); }
+    .xml-filter-bar label { font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gray); margin-right: var(--sp-2); }
+    .xml-filter-btn { font-family: 'DM Sans',sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: var(--sp-2) var(--sp-5); border: 1.5px solid var(--gray-light); background: transparent; color: var(--charcoal-soft); cursor: pointer; transition: all var(--transition); }
+    /* CSS-only hover effect on filter buttons */
+    .xml-filter-btn:hover { background: var(--navy-tint); border-color: var(--navy); color: var(--navy); }
+    .xml-filter-btn.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+    #xml-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); }
+    .xml-card { background: var(--white); border: 1px solid var(--color-border); border-top: 3px solid var(--navy); padding: var(--sp-6); transition: all var(--transition); }
+    .xml-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-top-color: var(--gold); }
+    .xml-card__code { font-family: 'DM Sans',sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dark); margin-bottom: var(--sp-2); }
+    .xml-card__title { font-family: 'Playfair Display',serif; font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: var(--sp-3); line-height: 1.3; }
+    .xml-card__desc { font-size: 13px; line-height: 1.65; color: var(--charcoal-soft); margin-bottom: var(--sp-4); }
+    .xml-card__meta { display: flex; flex-direction: column; gap: var(--sp-2); padding-top: var(--sp-4); border-top: 1px solid var(--color-border); }
+    .xml-card__meta-row { display: flex; gap: var(--sp-3); font-family: 'DM Sans',sans-serif; font-size: 11px; }
+    .xml-card__meta-label { font-weight: 600; color: var(--charcoal-mid); min-width: 80px; }
+    .xml-card__meta-value { color: var(--charcoal-soft); }
+    #xml-loading { text-align: center; padding: var(--sp-12); font-family: 'DM Sans',sans-serif; font-size: 13px; color: var(--gray); }
+    #xml-no-results { display: none; text-align: center; padding: var(--sp-12); color: var(--gray); font-family: 'DM Sans',sans-serif; font-size: 14px; }
+
+    @media (max-width: 900px) { #xml-cards-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 768px) {
+      .courses-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .course-row { grid-template-columns: 1fr; }
+      #xml-cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo" aria-label="Stonebridge University home">
+      <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:44px;height:44px;flex-shrink:0;" role="img" aria-label="Stonebridge crest">
+        <rect width="44" height="44" fill="#1E3A8A"/>
+        <path d="M22 6 L36 13 L36 22 C36 30 29 37 22 39 C15 37 8 30 8 22 L8 13 Z" fill="none" stroke="#C6A75E" stroke-width="1.5"/>
+        <text x="22" y="27" text-anchor="middle" font-family="Playfair Display, serif" font-size="13" font-weight="700" fill="#C6A75E">SB</text>
+        <line x1="13" y1="32" x2="31" y2="32" stroke="#C6A75E" stroke-width="0.75" opacity="0.5"/>
+      </svg>
+      <div class="nav__logo-text"><span class="nav__logo-name">Stonebridge</span><span class="nav__logo-sub">School of Business &amp; Finance</span></div>
+    </a>
+    <ul class="nav__links" role="menubar">
+      <li class="nav__item" role="none"><a href="index.html" class="nav__link" role="menuitem">Home</a></li>
+      <li class="nav__item" role="none">
+        <a href="programmes.html" class="nav__link active" role="menuitem" aria-haspopup="true">Programmes ▾</a>
+        <div class="nav__dropdown" role="menu">
+          <a href="programmes.html#foundation"    class="nav__dropdown-link" role="menuitem">Foundation</a>
+          <a href="programmes.html#undergraduate" class="nav__dropdown-link" role="menuitem">Undergraduate</a>
+          <a href="programmes.html#postgraduate"  class="nav__dropdown-link" role="menuitem">Postgraduate</a>
+          <a href="courses.html"                  class="nav__dropdown-link" role="menuitem">Browse All Courses</a>
+        </div>
+      </li>
+      <li class="nav__item" role="none">
+        <a href="departments.html" class="nav__link" role="menuitem" aria-haspopup="true">Departments ▾</a>
+        <div class="nav__dropdown" role="menu">
+          <a href="departments.html#finance"    class="nav__dropdown-link" role="menuitem">Finance &amp; Banking</a>
+          <a href="departments.html#management" class="nav__dropdown-link" role="menuitem">Management &amp; Strategy</a>
+          <a href="departments.html#marketing"  class="nav__dropdown-link" role="menuitem">Marketing &amp; Commerce</a>
+        </div>
+      </li>
+      <li class="nav__item" role="none">
+        <a href="admissions.html" class="nav__link" role="menuitem" aria-haspopup="true">Admissions ▾</a>
+        <div class="nav__dropdown" role="menu">
+          <a href="admissions.html#about"        class="nav__dropdown-link" role="menuitem">About Admissions</a>
+          <a href="admissions.html#requirements" class="nav__dropdown-link" role="menuitem">Entry Requirements</a>
+          <a href="admissions.html#enquiry"      class="nav__dropdown-link" role="menuitem">Submit an Enquiry</a>
+        </div>
+      </li>
+      <li class="nav__item" role="none">
+        <a href="about.html" class="nav__link" role="menuitem" aria-haspopup="true">About ▾</a>
+        <div class="nav__dropdown" role="menu">
+          <a href="about.html"    class="nav__dropdown-link" role="menuitem">About the University</a>
+          <a href="research.html" class="nav__dropdown-link" role="menuitem">Research &amp; Publications</a>
+          <a href="alumni.html"   class="nav__dropdown-link" role="menuitem">Alumni Network</a>
+          <a href="contact.html"  class="nav__dropdown-link" role="menuitem">Contact Us</a>
+        </div>
+      </li>
+    </ul>
+    <a href="admissions.html#enquiry" class="nav__cta" aria-label="Apply Now">Apply Now</a>
+    <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false"
+            onclick="var l=this.closest('.nav').querySelector('.nav__links');l.classList.toggle('open');this.setAttribute('aria-expanded',l.classList.contains('open'));">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="page-body">
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a><span aria-hidden="true">/</span>
+        <a href="programmes.html">Programmes</a><span aria-hidden="true">/</span>
+        <span aria-current="page">All Courses</span>
+      </nav>
+      <span class="overline">Course Directory</span>
+      <h1>Browse All Courses</h1>
+      <p class="lead">Filter by level or department to find the right programme. Course details are loaded from our live XML data source.</p>
+    </div>
+  </section>
+
+  <!-- Filters by Level (4 options) AND Department (4 options) -->
+  <section style="background: var(--ivory);">
+    <div class="container">
+      <div class="courses-layout">
+
+        <!-- SIDEBAR FILTERS -->
+        <aside class="sidebar" aria-label="Course filters">
+          <div class="sidebar__section" role="group" aria-labelledby="lbl-level">
+            <div class="sidebar__heading" id="lbl-level">Filter by Level</div>
+            <button class="sidebar__filter active" aria-pressed="true"  onclick="filterCourses('level','all',this)">All Levels</button>
+            <button class="sidebar__filter"        aria-pressed="false" onclick="filterCourses('level','foundation',this)">Foundation</button>
+            <button class="sidebar__filter"        aria-pressed="false" onclick="filterCourses('level','undergraduate',this)">Undergraduate</button>
+            <button class="sidebar__filter"        aria-pressed="false" onclick="filterCourses('level','postgraduate',this)">Postgraduate</button>
+          </div>
+          <div class="sidebar__section" role="group" aria-labelledby="lbl-dept">
+            <div class="sidebar__heading" id="lbl-dept">Filter by Department</div>
+            <button class="sidebar__filter active" aria-pressed="true"  onclick="filterCourses('dept','all',this)">All Departments</button>
+            <button class="sidebar__filter"        aria-pressed="false" onclick="filterCourses('dept','finance',this)">Finance &amp; Banking</button>
+            <button class="sidebar__filter"        aria-pressed="false" onclick="filterCourses('dept','management',this)">Management &amp; Strategy</button>
+            <button class="sidebar__filter"        aria-pressed="false" onclick="filterCourses('dept','marketing',this)">Marketing &amp; Commerce</button>
+          </div>
+          <div style="margin-top:var(--sp-8);">
+            <a href="admissions.html#enquiry" class="btn btn--primary" style="width:100%;text-align:center;display:block;" aria-label="Go to course enquiry form">Enquire About a Course</a>
+          </div>
+        </aside>
+
+        <!-- COURSE LIST -->
+        <main aria-live="polite" aria-label="Filtered course list">
+          <div class="courses-count">Showing <strong id="visible-count">16</strong> courses</div>
+          <div class="course-list" id="course-list">
+
+            <!-- Foundation (Departments - finance/management) -->
+            <a href="programmes.html#foundation" class="course-row" data-level="foundation" data-dept="finance" aria-label="FND101 Introduction to Business and Markets, Foundation">
+              <div class="course-row__code">FND 101</div>
+              <div><div class="course-row__title">Introduction to Business &amp; Markets</div><div class="course-row__meta">Foundation · 1 Year · Oxford Campus</div></div>
+              <span class="course-row__badge badge-found">Foundation</span>
+            </a>
+            <a href="programmes.html#foundation" class="course-row" data-level="foundation" data-dept="finance" aria-label="FND102 Quantitative Methods for Business, Foundation">
+              <div class="course-row__code">FND 102</div>
+              <div><div class="course-row__title">Quantitative Methods for Business</div><div class="course-row__meta">Foundation · 1 Year · Oxford Campus</div></div>
+              <span class="course-row__badge badge-found">Foundation</span>
+            </a>
+            <a href="programmes.html#foundation" class="course-row" data-level="foundation" data-dept="management" aria-label="FND103 Academic English and Communication, Foundation">
+              <div class="course-row__code">FND 103</div>
+              <div><div class="course-row__title">Academic English &amp; Communication</div><div class="course-row__meta">Foundation · 1 Year · Oxford Campus</div></div>
+              <span class="course-row__badge badge-found">Foundation</span>
+            </a>
+            <a href="programmes.html#foundation" class="course-row" data-level="foundation" data-dept="finance" aria-label="FND104 Principles of Accounting, Foundation">
+              <div class="course-row__code">FND 104</div>
+              <div><div class="course-row__title">Principles of Accounting</div><div class="course-row__meta">Foundation · 1 Year · Oxford Campus</div></div>
+              <span class="course-row__badge badge-found">Foundation</span>
+            </a>
+
+            <!-- Undergraduate -->
+            <a href="programmes.html#undergraduate" class="course-row" data-level="undergraduate" data-dept="finance" aria-label="BSc Business and Finance, Undergraduate">
+              <div class="course-row__code">BSc</div>
+              <div><div class="course-row__title">BSc Business &amp; Finance</div><div class="course-row__meta">Undergraduate · 3 Years · £9,250/yr</div></div>
+              <span class="course-row__badge badge-ug">Undergraduate</span>
+            </a>
+            <a href="programmes.html#undergraduate" class="course-row" data-level="undergraduate" data-dept="finance" aria-label="BSc Accounting and Financial Management, Undergraduate">
+              <div class="course-row__code">BSc</div>
+              <div><div class="course-row__title">BSc Accounting &amp; Financial Management</div><div class="course-row__meta">Undergraduate · 3 Years · £9,250/yr</div></div>
+              <span class="course-row__badge badge-ug">Undergraduate</span>
+            </a>
+            <a href="programmes.html#undergraduate" class="course-row" data-level="undergraduate" data-dept="finance" aria-label="BSc Economics and Investment, Undergraduate">
+              <div class="course-row__code">BSc</div>
+              <div><div class="course-row__title">BSc Economics &amp; Investment</div><div class="course-row__meta">Undergraduate · 3 Years · £9,250/yr</div></div>
+              <span class="course-row__badge badge-ug">Undergraduate</span>
+            </a>
+            <a href="programmes.html#undergraduate" class="course-row" data-level="undergraduate" data-dept="marketing" aria-label="BSc International Business and Marketing, Undergraduate">
+              <div class="course-row__code">BSc</div>
+              <div><div class="course-row__title">BSc International Business &amp; Marketing</div><div class="course-row__meta">Undergraduate · 3 Years · £9,250/yr</div></div>
+              <span class="course-row__badge badge-ug">Undergraduate</span>
+            </a>
+            <a href="programmes.html#undergraduate" class="course-row" data-level="undergraduate" data-dept="finance" aria-label="BSc Banking and Risk Management, Undergraduate">
+              <div class="course-row__code">BSc</div>
+              <div><div class="course-row__title">BSc Banking &amp; Risk Management</div><div class="course-row__meta">Undergraduate · 3 Years · £9,250/yr</div></div>
+              <span class="course-row__badge badge-ug">Undergraduate</span>
+            </a>
+            <a href="programmes.html#undergraduate" class="course-row" data-level="undergraduate" data-dept="management" aria-label="BSc Business Management and Strategy, Undergraduate">
+              <div class="course-row__code">BSc</div>
+              <div><div class="course-row__title">BSc Business Management &amp; Strategy</div><div class="course-row__meta">Undergraduate · 3 Years · £9,250/yr</div></div>
+              <span class="course-row__badge badge-ug">Undergraduate</span>
+            </a>
+
+            <!-- Postgraduate -->
+            <a href="programmes.html#postgraduate" class="course-row" data-level="postgraduate" data-dept="finance" aria-label="MSc Financial Management, Postgraduate">
+              <div class="course-row__code">MSc</div>
+              <div><div class="course-row__title">MSc Financial Management</div><div class="course-row__meta">Postgraduate · 12 Months · £22,500</div></div>
+              <span class="course-row__badge badge-pg">Postgraduate</span>
+            </a>
+            <a href="programmes.html#postgraduate" class="course-row" data-level="postgraduate" data-dept="finance" aria-label="MSc Banking and International Finance, Postgraduate">
+              <div class="course-row__code">MSc</div>
+              <div><div class="course-row__title">MSc Banking &amp; International Finance</div><div class="course-row__meta">Postgraduate · 12 Months · £22,500</div></div>
+              <span class="course-row__badge badge-pg">Postgraduate</span>
+            </a>
+            <a href="programmes.html#postgraduate" class="course-row" data-level="postgraduate" data-dept="management" aria-label="MSc Strategic Management, Postgraduate">
+              <div class="course-row__code">MSc</div>
+              <div><div class="course-row__title">MSc Strategic Management</div><div class="course-row__meta">Postgraduate · 12 Months · £22,500</div></div>
+              <span class="course-row__badge badge-pg">Postgraduate</span>
+            </a>
+            <a href="programmes.html#postgraduate" class="course-row" data-level="postgraduate" data-dept="marketing" aria-label="MSc Marketing Analytics and Commerce, Postgraduate">
+              <div class="course-row__code">MSc</div>
+              <div><div class="course-row__title">MSc Marketing Analytics &amp; Commerce</div><div class="course-row__meta">Postgraduate · 12 Months · £22,500</div></div>
+              <span class="course-row__badge badge-pg">Postgraduate</span>
+            </a>
+            <a href="programmes.html#postgraduate" class="course-row" data-level="postgraduate" data-dept="management" aria-label="MBA Master of Business Administration, Postgraduate">
+              <div class="course-row__code">MBA</div>
+              <div><div class="course-row__title">MBA (Master of Business Administration)</div><div class="course-row__meta">Postgraduate · 12 Months · £28,000</div></div>
+              <span class="course-row__badge badge-pg">Postgraduate</span>
+            </a>
+            <a href="programmes.html#postgraduate" class="course-row" data-level="postgraduate" data-dept="finance" aria-label="MRes Business and Finance Research, Postgraduate">
+              <div class="course-row__code">MRes</div>
+              <div><div class="course-row__title">MRes Business &amp; Finance Research</div><div class="course-row__meta">Postgraduate · 12 Months · £19,500</div></div>
+              <span class="course-row__badge badge-pg">Postgraduate</span>
+            </a>
+
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- XML-DRIVEN DETAIL CARDS. Filterable by level (4 options) -->
+  <section id="xml-course-section">
+    <div class="container">
+      <span class="overline">Loaded from XML Data Source</span>
+      <h2>Course Details</h2>
+      <p style="margin-bottom:var(--sp-8);">The course code, description, duration and entry requirements below are rendered dynamically from <code>courses.xml</code> using JavaScript.</p>
+
+      <!-- Filter buttons -->
+      <div class="xml-filter-bar" role="group" aria-label="Filter course detail cards by level">
+        <label>Filter level:</label>
+        <button class="xml-filter-btn active" aria-pressed="true"  onclick="filterXmlCards('All',this)">All</button>
+        <button class="xml-filter-btn"        aria-pressed="false" onclick="filterXmlCards('Foundation',this)">Foundation</button>
+        <button class="xml-filter-btn"        aria-pressed="false" onclick="filterXmlCards('Undergraduate',this)">Undergraduate</button>
+        <button class="xml-filter-btn"        aria-pressed="false" onclick="filterXmlCards('Postgraduate',this)">Postgraduate</button>
+      </div>
+
+      <div id="xml-loading" aria-live="polite">Loading course data from XML…</div>
+      <div id="xml-cards-grid" role="list" aria-label="Course detail cards"></div>
+      <div id="xml-no-results" role="status" aria-live="polite">No courses match this filter.</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div><div class="footer__brand-name">Stonebridge University</div><div class="footer__brand-tagline">School of Business &amp; Finance</div><p class="footer__brand-desc">Shaping principled leaders and analytical minds since 1847. Triple-accredited and globally ranked.</p></div>
+        <div><div class="footer__col-heading">Programmes</div><ul class="footer__links"><li><a href="programmes.html#foundation" class="footer__link">Foundation</a></li><li><a href="programmes.html#undergraduate" class="footer__link">Undergraduate</a></li><li><a href="programmes.html#postgraduate" class="footer__link">Postgraduate</a></li><li><a href="courses.html" class="footer__link">Browse All Courses</a></li></ul></div>
+        <div><div class="footer__col-heading">The School</div><ul class="footer__links"><li><a href="about.html" class="footer__link">About Us</a></li><li><a href="departments.html" class="footer__link">Departments</a></li><li><a href="research.html" class="footer__link">Research &amp; Publications</a></li><li><a href="alumni.html" class="footer__link">Alumni Network</a></li></ul></div>
+        <div><div class="footer__col-heading">Contact</div><ul class="footer__links"><li><a href="admissions.html#enquiry" class="footer__link">Submit an Enquiry</a></li><li><a href="contact.html" class="footer__link">Contact Us</a></li><li><a href="admissions.html" class="footer__link">How to Apply</a></li></ul></div>
+      </div>
+      <div class="footer__bottom"><span class="footer__copy">© 2025 Stonebridge University School of Business &amp; Finance. All rights reserved.</span><span class="footer__copy">Oxford, England · OX1 2BF</span></div>
+    </div>
+  </footer>
+
+</div><!-- /page-body -->
+
+<script>
+  /* filterCourses() - Filters the static HTML course rows by LEVEL and DEPARTMENT.*/
+  var activeLevel = 'all';
+  var activeDept  = 'all';
+
+  function filterCourses(dimension, value, btn) {
+    if (dimension === 'level') { activeLevel = value; }
+    else                       { activeDept  = value; }
+
+    /* Update aria-pressed and .active on sibling buttons */
+    var group = btn.closest('[role="group"]');
+    group.querySelectorAll('.sidebar__filter').forEach(function(b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+
+    /* Show/hide rows — both filters apply simultaneously */
+    var rows = document.querySelectorAll('.course-row');
+    var count = 0;
+    rows.forEach(function(row) {
+      var levelOk = (activeLevel === 'all') || (row.dataset.level === activeLevel);
+      var deptOk  = (activeDept  === 'all') || (row.dataset.dept  === activeDept);
+      row.style.display = (levelOk && deptOk) ? 'grid' : 'none';
+      if (levelOk && deptOk) { count++; }
+    });
+    document.getElementById('visible-count').textContent = count;
+  }
+
+  /* loadCoursesFromXML() - Parses <course> nodes and renders detail cards showing: course code, title, description, duration, entry requirements */
+  var allXmlCourses = [];
+
+  function loadCoursesFromXML() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'courses.xml', true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState !== 4) { return; }
+
+      if (xhr.status === 200 || xhr.status === 0) {
+        var xmlDoc = xhr.responseXML;
+        if (!xmlDoc) {
+          var parser = new DOMParser();
+          xmlDoc = parser.parseFromString(xhr.responseText, 'text/xml');
+        }
+
+        allXmlCourses = [];
+        var nodes = xmlDoc.getElementsByTagName('course');
+        for (var i = 0; i < nodes.length; i++) {
+          var n = nodes[i];
+          allXmlCourses.push({
+            code:  getText(n, 'code'),
+            title: getText(n, 'title'),
+            level: getText(n, 'level'),
+            dept:  getText(n, 'department'),
+            desc:  getText(n, 'description'),
+            dur:   getText(n, 'duration'),
+            entry: getText(n, 'entryRequirements'),
+            fee:   getText(n, 'fee')
+          });
+        }
+        document.getElementById('xml-loading').style.display = 'none';
+        renderXmlCards(allXmlCourses);
+
+      } else {
+        /* Graceful fallback if XML cannot be fetched */
+        document.getElementById('xml-loading').innerHTML =
+          '<strong>Note:</strong> XML course cards load when served via a web server ' +
+          '(e.g. VS Code Live Server). Open <code>courses.xml</code> in the same folder.';
+      }
+    };
+    xhr.send();
+  }
+
+  function getText(node, tag) {
+    var el = node.getElementsByTagName(tag)[0];
+    return el ? el.textContent.trim() : '';
+  }
+
+  function renderXmlCards(courses) {
+    var grid = document.getElementById('xml-cards-grid');
+    var none = document.getElementById('xml-no-results');
+    grid.innerHTML = '';
+    if (courses.length === 0) { none.style.display = 'block'; return; }
+    none.style.display = 'none';
+
+    courses.forEach(function(c) {
+      var bc = (c.level === 'Undergraduate') ? 'badge-ug'
+             : (c.level === 'Postgraduate')  ? 'badge-pg'
+             : 'badge-found';
+      var feeFormatted = isNaN(c.fee) ? c.fee : '£' + parseInt(c.fee).toLocaleString();
+
+      grid.insertAdjacentHTML('beforeend',
+        '<div class="xml-card" role="listitem" aria-label="Course: ' + c.title + '">' +
+          '<div class="xml-card__code">' + c.code + '</div>' +
+          '<div class="xml-card__title">' + c.title + '</div>' +
+          '<p class="xml-card__desc">' + c.desc + '</p>' +
+          '<div class="xml-card__meta">' +
+            '<div class="xml-card__meta-row">' +
+              '<span class="xml-card__meta-label">Level:</span>' +
+              '<span class="xml-card__meta-value"><span class="course-row__badge ' + bc + '">' + c.level + '</span></span>' +
+            '</div>' +
+            '<div class="xml-card__meta-row">' +
+              '<span class="xml-card__meta-label">Duration:</span>' +
+              '<span class="xml-card__meta-value">' + c.dur + '</span>' +
+            '</div>' +
+            '<div class="xml-card__meta-row">' +
+              '<span class="xml-card__meta-label">Entry:</span>' +
+              '<span class="xml-card__meta-value">' + c.entry + '</span>' +
+            '</div>' +
+            '<div class="xml-card__meta-row">' +
+              '<span class="xml-card__meta-label">Fee:</span>' +
+              '<span class="xml-card__meta-value">' + feeFormatted + '</span>' +
+            '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    });
+  }
+
+  /* filterXmlCards() - Filters the XML-rendered cards by level. */
+  function filterXmlCards(level, btn) {
+    document.querySelectorAll('.xml-filter-btn').forEach(function(b) {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+
+    var filtered = (level === 'All')
+      ? allXmlCourses
+      : allXmlCourses.filter(function(c) { return c.level === level; });
+    renderXmlCards(filtered);
+  }
+
+  /* Load XML on page ready */
+  window.addEventListener('DOMContentLoaded', loadCoursesFromXML);
+</script>
+</body>
+</html>
